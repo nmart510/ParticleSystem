@@ -63,14 +63,14 @@ class MyGame extends engine.Scene {
         // particle systems
         this.mParticles = new engine.ParticleSet();
 
-        let y = 70;
-        let x = 10;
-        for (let i = 1; i <= 5; i++) {
-            let m = new Minion(this.kMinionSprite, x, y, ((i % 2) !== 0));
-            this.mParticles.addEmitterAt(x, y, 200, _createParticle);
-            x += 20;
-            this.mAllObjs.addToSet(m);
-        }
+        // let y = 70;
+        // let x = 10;
+        // for (let i = 1; i <= 5; i++) {
+        //     let m = new Minion(this.kMinionSprite, x, y, ((i % 2) !== 0));
+        //     this.mParticles.addEmitterAt(x, y, 200, _createParticle);
+        //     x += 20;
+        //     this.mAllObjs.addToSet(m);
+        // }
 
         this.mMsg = new engine.FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
@@ -130,7 +130,7 @@ class MyGame extends engine.Scene {
 
         if (engine.input.isKeyClicked(engine.input.keys.G)) {
             let x = 20 + Math.random() * 60;
-            let y = 75;
+            let y = 20 + Math.random() * 60;
             let t = Math.random() > 0.5;
             let m = new Minion(this.kMinionSprite, x, y, t);
             if (this.mDrawTexture) // default is false

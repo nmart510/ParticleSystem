@@ -40,8 +40,9 @@ class Minion extends WASDObj {
             r = new engine.RigidRectangle(this.getXform(), w, h);
         let vx = (Math.random() - 0.5);
         let vy = (Math.random() - 0.5);
-        let speed = 20 + Math.random() * 10;
+        let speed = 20 + Math.random() * 1;
         r.setVelocity(vx * speed, vy * speed);
+        r.setAcceleration(0.1, 0.1);
         this.setRigidBody(r);
         this.toggleDrawRenderable();
         this.toggleDrawRigidShape();
