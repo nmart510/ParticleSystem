@@ -12,9 +12,6 @@ class MyGame extends engine.Scene {
     constructor() {
         super();
         this.kMinionSprite = "assets/minion_sprite.png";
-        this.kPlatformTexture = "assets/platform.png";
-        this.kWallTexture = "assets/wall.png";
-        this.kTargetTexture = "assets/target.png";
 
         // The camera to view the scene
         this.mCamera = null;
@@ -23,18 +20,12 @@ class MyGame extends engine.Scene {
         this.mShapeMsg = null;
 
         this.mAllObjs = null;
-        this.mPlatforms = null;
-        this.mBounds = null;
         this.mCollisionInfos = [];
         this.mHero = null;
-
-        this.mCurrentObj = 0;
-        this.mTarget = null;
 
         // Draw controls
         this.mDrawCollisionInfo = false;
         this.mDrawTexture = false;
-        this.mDrawBounds = false;
         this.mDrawRigidShape = true;
 
         // Particle Support
@@ -47,16 +38,10 @@ class MyGame extends engine.Scene {
 
     load() {
         engine.texture.load(this.kMinionSprite);
-        engine.texture.load(this.kPlatformTexture);
-        engine.texture.load(this.kWallTexture);
-        engine.texture.load(this.kTargetTexture);
     }
 
     unload() {
         engine.texture.unload(this.kMinionSprite);
-        engine.texture.unload(this.kPlatformTexture);
-        engine.texture.unload(this.kWallTexture);
-        engine.texture.unload(this.kTargetTexture);
     }
 
     init() {
@@ -71,13 +56,9 @@ class MyGame extends engine.Scene {
         engine.defaultResources.setGlobalAmbientIntensity(3);
 
         this.mAllObjs = new engine.GameObjectSet();
-        this.mPlatforms = new engine.GameObjectSet();
-
-        this.createBounds();  // added to mPlatforms
 
         this.mHero = new Hero(this.kMinionSprite);
-        this.mAllObjs.addToSet(this.mHero);
-        this.mCurrentObj = 0;
+        //this.mAllObjs.addToSet(this.mHero);
                 
         // particle systems
         this.mParticles = new engine.ParticleSet();
@@ -111,8 +92,8 @@ class MyGame extends engine.Scene {
 
         this.mCamera.setViewAndCameraMatrix();
 
-        this.mPlatforms.draw(this.mCamera);
         this.mAllObjs.draw(this.mCamera);
+        this.mHero.draw(this.mCamera);
 
         this.mParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
@@ -125,24 +106,17 @@ class MyGame extends engine.Scene {
         this.mCollisionInfos = [];
         }
 
-        this.mTarget.draw(this.mCamera);
         this.mMsg.draw(this.mCamera);   
         this.mShapeMsg.draw(this.mCamera);
-    }
-
-    incShapeSize(obj, delta) {
-        let s = obj.getRigidBody();
-        let r = s.incShapeSizeBy(delta);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update() {
         let msg = "";
-        let kBoundDelta = 0.1;
 
         this.mAllObjs.update(this.mCamera);
-        this.mPlatforms.update(this.mCamera);
+        this.mHero.update(this.mCamera);
 
         if (engine.input.isKeyClicked(engine.input.keys.P)) {
             engine.physics.togglePositionalCorrection();
@@ -154,25 +128,6 @@ class MyGame extends engine.Scene {
             this.randomizeVelocity();
         }
 
-        if (engine.input.isKeyClicked(engine.input.keys.Left)) {
-            this.mCurrentObj -= 1;
-            if (this.mCurrentObj < 0)
-                this.mCurrentObj = this.mAllObjs.size() - 1;
-        }
-        if (engine.input.isKeyClicked(engine.input.keys.Right)) {
-            this.mCurrentObj += 1;
-            if (this.mCurrentObj >= this.mAllObjs.size())
-                this.mCurrentObj = 0;
-        }
-
-        let obj = this.mAllObjs.getObjectAt(this.mCurrentObj);
-        if (engine.input.isKeyPressed(engine.input.keys.Y)) {
-            this.incShapeSize(obj, kBoundDelta);
-        }
-        if (engine.input.isKeyPressed(engine.input.keys.U)) {
-            this.incShapeSize(obj, -kBoundDelta);
-        }
-
         if (engine.input.isKeyClicked(engine.input.keys.G)) {
             let x = 20 + Math.random() * 60;
             let y = 75;
@@ -180,8 +135,6 @@ class MyGame extends engine.Scene {
             let m = new Minion(this.kMinionSprite, x, y, t);
             if (this.mDrawTexture) // default is false
                 m.toggleDrawRenderable();
-            if (this.mDrawBounds) // default is false
-                m.getRigidBody().toggleDrawBound();
             if (!this.mDrawRigidShape) // default is true
                 m.toggleDrawRigidShape();
             this.mAllObjs.addToSet(m);
@@ -203,50 +156,27 @@ class MyGame extends engine.Scene {
             this.mPSCollision = !this.mPSCollision;
         if (this.mPSCollision) {
             engine.particleSystem.resolveRigidShapeSetCollision(this.mAllObjs, this.mParticles);
-            engine.particleSystem.resolveRigidShapeSetCollision(this.mPlatforms, this.mParticles);
+            engine.particleSystem.resolveRigidShapeCollision(this.mHero, this.mParticles);
+            //engine.particleSystem.resolveRigidShapeSetCollision(this.mPlatforms, this.mParticles);
         }
 
-        obj.keyControl();
-        this.drawControlUpdate();
+        this.mHero.keyControl();
 
         if (this.mDrawCollisionInfo)
             this.mCollisionInfos = [];
         else
             this.mCollisionInfos = null;
-        engine.physics.processObjToSet(this.mHero, this.mPlatforms, this.mCollisionInfos);
-        engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
+        //engine.physics.processObjToSet(this.mHero, this.mPlatforms, this.mCollisionInfos);
+        //engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
         engine.physics.processSet(this.mAllObjs, this.mCollisionInfos);
 
-        let p = obj.getXform().getPosition();
-        this.mTarget.getXform().setPosition(p[0], p[1]);
+        let p = this.mHero.getXform().getPosition();
         msg += "  P(" + engine.physics.getPositionalCorrection() +
             " " + engine.physics.getRelaxationCount() + ")" +
             " V(" + engine.physics.getHasMotion() + ")";
         this.mMsg.setText(msg);
 
-        this.mShapeMsg.setText(obj.getRigidBody().getCurrentState());
-    }
-
-    drawControlUpdate() {
-        let i;
-        if (engine.input.isKeyClicked(engine.input.keys.C)) {
-            this.mDrawCollisionInfo = !this.mDrawCollisionInfo;
-        }
-        if (engine.input.isKeyClicked(engine.input.keys.T)) {
-            this.mDrawTexture = !this.mDrawTexture;
-            this.mAllObjs.toggleDrawRenderable();
-            this.mPlatforms.toggleDrawRenderable();
-        }
-        if (engine.input.isKeyClicked(engine.input.keys.R)) {
-            this.mDrawRigidShape = !this.mDrawRigidShape;
-            this.mAllObjs.toggleDrawRigidShape();
-            this.mPlatforms.toggleDrawRigidShape();
-        }
-        if (engine.input.isKeyClicked(engine.input.keys.B)) {
-            this.mDrawBounds = !this.mDrawBounds;
-            this.mAllObjs.toggleDrawBound();
-            this.mPlatforms.toggleDrawBound();
-        }
+        this.mShapeMsg.setText(this.mHero.getRigidBody().getCurrentState());
     }
 }
 

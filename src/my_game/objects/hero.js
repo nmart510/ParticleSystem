@@ -20,8 +20,9 @@ class Hero extends WASDObj {
         this.mRenderComponent.setElementPixelPositions(0, 120, 0, 180);
 
         let r = new engine.RigidRectangle(this.getXform(), 3, 4);
+        r.setMass(0);
         this.setRigidBody(r);
-        this.toggleDrawRenderable();
+        //this.toggleDrawRenderable();
         this.toggleDrawRigidShape();
     }
 }
