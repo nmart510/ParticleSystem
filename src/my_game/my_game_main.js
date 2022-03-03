@@ -149,7 +149,7 @@ class MyGame extends engine.Scene {
             this.mPSDrawBounds = !this.mPSDrawBounds;
         if (engine.input.isKeyPressed(engine.input.keys.Q)) {
             if (this.mCamera.isMouseInViewport()) {
-                let func = this.mPPreset.Basic();
+                let func = this.mPPreset.Flame();
                 let par = func(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
                 this.mParticles.addToSet(par);
             }
