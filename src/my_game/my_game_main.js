@@ -199,11 +199,9 @@ function _createParticle(atX, atY) {
     let life = 30 + Math.random() * 200;
     let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
     p.setColor([1, 0, 0, 1]);
-    
     // size of the particle
     let r = 5.5 + Math.random() * 0.5;
     p.setSize(r, r);
-    
     // final color
     let fr = 3.5 + Math.random();
     let fg = 0.4 + 0.1 * Math.random();
