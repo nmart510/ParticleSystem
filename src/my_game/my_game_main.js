@@ -32,6 +32,7 @@ class MyGame extends engine.Scene {
         this.mParticles = null;
         this.mPSDrawBounds = false;
         this.mPSCollision = true;
+        this.mPPreset = null;
     }
 
 
@@ -81,7 +82,7 @@ class MyGame extends engine.Scene {
         this.mShapeMsg.setColor([0, 0, 0, 1]);
         this.mShapeMsg.getXform().setPosition(5, 73);
         this.mShapeMsg.setTextHeight(2.5);
-
+        this.mPPreset = new engine.ParticlePreset();
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -139,7 +140,7 @@ class MyGame extends engine.Scene {
                 m.toggleDrawRigidShape();
             this.mAllObjs.addToSet(m);
 
-            this.mParticles.addEmitterAt(x, y, 200, _createParticle);
+            this.mParticles.addEmitterAt(x, y, 200, this.mPPreset.Basic());
         }
         
         // Particle System
@@ -148,7 +149,8 @@ class MyGame extends engine.Scene {
             this.mPSDrawBounds = !this.mPSDrawBounds;
         if (engine.input.isKeyPressed(engine.input.keys.Q)) {
             if (this.mCamera.isMouseInViewport()) {
-                let par = _createParticle(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
+                let func = this.mPPreset.Basic();
+                let par = func(this.mCamera.mouseWCX(), this.mCamera.mouseWCY());
                 this.mParticles.addToSet(par);
             }
         }
@@ -191,31 +193,8 @@ MyGame.prototype.randomizeVelocity = function()
         let y = Math.random() * kSpeed * 0.5;
         rigidShape.setVelocity(x, y);
         let c = rigidShape.getCenter();
-        this.mParticles.addEmitterAt(c[0], c[1], 20, _createParticle);
+        this.mParticles.addEmitterAt(c[0], c[1], 20, this.mPPreset.Basic());
     }
 }
 
-function _createParticle(atX, atY) {
-    let life = 30 + Math.random() * 200;
-    let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-    p.setColor([1, 0, 0, 1]);
-    // size of the particle
-    let r = 5.5 + Math.random() * 0.5;
-    p.setSize(r, r);
-    // final color
-    let fr = 3.5 + Math.random();
-    let fg = 0.4 + 0.1 * Math.random();
-    let fb = 0.3 + 0.1 * Math.random();
-    p.setFinalColor([fr, fg, fb, 0.6]);
-    
-    // velocity on the particle
-    let fx = 10 - 20 * Math.random();
-    let fy = 10 * Math.random();
-    p.setVelocity(fx, fy);
-    
-    // size delta
-    p.setSizeDelta(0.98);
-    
-    return p;
-}
 export default MyGame;

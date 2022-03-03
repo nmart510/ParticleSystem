@@ -71,6 +71,7 @@ import CollisionInfo from "./rigid_shapes/collision_info.js";
 import Particle from "./particles/particle.js";
 import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
+import ParticlePreset from "./particles/particle_preset.js";
 
 // local to this file only
 import * as glSys from "./core/gl.js";
@@ -136,7 +137,7 @@ export default {
     physics, RigidShape, RigidCircle, RigidRectangle, CollisionInfo,
 
     // Particle support
-    Particle, ParticleSet, ParticleEmitter,
+    Particle, ParticleSet, ParticleEmitter, ParticlePreset,
 
     // constants
     eTexCoordArrayIndex, eAnimationType, eBoundCollideStatus, eLightType,
