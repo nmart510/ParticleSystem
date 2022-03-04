@@ -145,7 +145,8 @@ class MyGame extends engine.Scene {
         if (engine.input.isKeyClicked(engine.input.keys.Q)) {
             if (this.mCamera.isMouseInViewport()) {
                 let flame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
-
+                flame.setColorStart(1,0,0,1);
+                flame.setColorEnd(1,.7,.3,.6);
             }
         }
         if (engine.input.isKeyClicked(engine.input.keys.One))
