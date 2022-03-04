@@ -1,8 +1,12 @@
 
 import engine from "../../engine/index.js";
 import FlameParticle from "./flame_particle.js";
+import RainParticle from "./rain_particle.js";
 
 class ParticlePreset{
+    constructor(aCamera){
+        this.camera = aCamera;
+    }
     Basic(){
         return _createParticle;
     }
@@ -54,9 +58,11 @@ function _createFlame(atX, atY, climb, spread, colorStart, colorEnd, wind) {
     
     return p;
 }
-function _createRain(atX, atY, colorStart, colorEnd, wind) {
+function _createRain(colorStart, colorEnd, wind) {
     let life = 1000;
-    let p = new FlameParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+    let x = (Math.random()-.5) * aCamera.getWCWidth()*2;
+    let y = aCamera.getWCHeight + .1;
+    let p = new RainParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
     p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
     // size of the particle
     let r = 1.5;
