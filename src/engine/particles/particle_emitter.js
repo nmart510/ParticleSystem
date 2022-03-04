@@ -16,6 +16,21 @@ class ParticleEmitter {
 
         // Function to create particles (user defined)
         this.mParticleCreator = createrFunc;
+        this.mColorBegin = [1,1,1,1];
+        this.mColorEnd = [1,1,1,1];
+    }
+
+    getColorStart(){
+        return this.mColorBegin;
+    }
+    setColorStart(r,g,b,a){
+        this.mColorBegin = [r,g,b,a];
+    }
+    getColorEnd(){
+        return this.mColorEnd;
+    }
+    setColorEnd(r,g,b,a){
+        this.mColorEnd = [r,g,b,a];
     }
 
     expired() { return (this.mNumRemains <= 0); }
