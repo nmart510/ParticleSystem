@@ -10,6 +10,7 @@
 
 import * as glSys from "../core/gl.js";
 import GameObjectSet from "../game_objects/game_object_set.js";
+import FlameEmitter from "./flame_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
 
 class ParticleSet extends GameObjectSet {
@@ -27,6 +28,10 @@ class ParticleSet extends GameObjectSet {
 
     addEmitterAt(x, y, n, func) {
         let e = new ParticleEmitter(x, y, n, func);
+        this.mEmitterSet.push(e);
+    }
+    addFlameAt(x,y,n,func,life) {
+        let e = new FlameEmitter(x, y, n, func, life);
         this.mEmitterSet.push(e);
     }
 
