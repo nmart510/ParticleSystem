@@ -49,7 +49,7 @@ class ParticleEmitter {
         this.mNumRemains -= numToEmit;
         let i, p;
         for (i = 0; i < numToEmit; i++) {
-            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1]);
+            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, this.mColorEnd);
             pSet.addToSet(p);
         }
     }
