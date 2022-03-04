@@ -79,7 +79,8 @@ class MyGame extends engine.Scene {
         this.mMsg.getXform().setPosition(0, 7);
         this.mMsg.setTextHeight(3);
 
-        this.mPPreset = new engine.ParticlePreset();
+        //TODO: Make this a util class that the particle emitter base calls upon rather than something called from main
+        this.mPPreset = new engine.ParticlePreset(this.mCamera);
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -152,16 +153,33 @@ class MyGame extends engine.Scene {
         
         // Particle System
         this.mParticles.update();
-        if (engine.input.isKeyClicked(engine.input.keys.E))
+        if (engine.input.isKeyClicked(engine.input.keys.E)) {
             this.mPSDrawBounds = !this.mPSDrawBounds;
-        if (engine.input.isKeyClicked(engine.input.keys.Q)) {
+        }
+            
+        if (engine.input.isButtonClicked(engine.input.eMouseButton.eLeft)) {
             if (this.mCamera.isMouseInViewport()) {
-                let flame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
-                flame.setColorStart(1,0,0,1);
-                flame.setColorEnd(1,.7,.3,.6);
+                switch(this.mCurrentOption) {
+                    case 0: //Default
+                        let newDefault = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        newDefault.setColorStart(1,0,0,1);
+                        newDefault.setColorEnd(1,.7,.3,.6);
+                        break;
+                    case 1: //Flame
+                        let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        newFlame.setColorStart(0,0,1,1);
+                        newFlame.setColorEnd(0,.7,.3,.6);
+                        break;
+                    case 2: //Dust
+                        let newDust = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        newDust.setColorStart(0,1,0,1);
+                        newDust.setColorEnd(1,0,.3,.6);
+                        break;
+                }
+                
             }
         }
-        if (engine.input.isKeyClicked(engine.input.keys.One))
+        if (engine.input.isKeyClicked(engine.input.keys.Q))
             this.mPSCollision = !this.mPSCollision;
         if (this.mPSCollision) {
             engine.particleSystem.resolveRigidShapeSetCollision(this.mAllObjs, this.mParticles);
