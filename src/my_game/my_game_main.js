@@ -167,7 +167,7 @@ class MyGame extends engine.Scene {
             if (this.mCamera.isMouseInViewport()) {
                 switch(this.mCurrentOption) {
                     case 0: //Default
-                        let newDefault = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        let newDefault = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Basic());
                         newDefault.setColorStart(0,0,1,1);
                         newDefault.setColorEnd(0,.7,.3,.6);
                         break;
