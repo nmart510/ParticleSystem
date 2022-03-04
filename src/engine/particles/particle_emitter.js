@@ -32,7 +32,8 @@ class ParticleEmitter {
     setColorEnd(r,g,b,a){
         this.mColorEnd = [r,g,b,a];
     }
-
+    //end any ongoing particle emitter by setting numRemains to 0
+    terminate(){this.mNumRemains = 0;}
     expired() { return (this.mNumRemains <= 0); }
 
     emitParticles(pSet) {
