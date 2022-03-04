@@ -87,9 +87,9 @@ function _createFlame(atX, atY, climb, spread, colorStart, colorEnd, wind) {
     return p;
 }
 function _createRain(colorStart, colorEnd, wind) {
-    let life = 120;
+    let life = 60;
     let x = (Math.random()-.5) * 200;
-    let y = 81;
+    let y = 80 + Math.random();
     let p = new RainParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
     p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
     // size of the particle
