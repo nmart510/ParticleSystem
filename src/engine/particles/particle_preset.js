@@ -54,4 +54,24 @@ function _createFlame(atX, atY, climb, spread, colorStart, colorEnd, wind) {
     
     return p;
 }
+function _createRain(atX, atY, colorStart, colorEnd, wind) {
+    let life = 1000;
+    let p = new FlameParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+    p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+    // size of the particle
+    let r = 1.5;
+    p.setSize(r, r);
+    // final color
+    p.setFinalColor(colorEnd);
+    
+    // velocity on the particle
+    let fx = 0;
+    let fy = -10;
+    p.setVelocity(fx, fy);
+    p.setAcceleration(wind,-10);
+    // size delta
+    p.setSizeDelta(1);
+    
+    return p;
+}
 export default ParticlePreset;
