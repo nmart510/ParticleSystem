@@ -52,6 +52,10 @@ class ParticleEmitter {
             pSet.addToSet(p);
         }
     }
+
+    //Default Value
+    //Presets
+    //Support for optional this.mParticleCreator = createrFunc;
 }
 
 export default ParticleEmitter;

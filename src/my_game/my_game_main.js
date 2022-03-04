@@ -17,7 +17,7 @@ class MyGame extends engine.Scene {
         this.mCamera = null;
 
         this.mMsg = null;
-        this.mShapeMsg = null;
+        this.mCurrentParticle = "Default";
 
         this.mAllObjs = null;
         this.mCollisionInfos = [];
@@ -52,7 +52,7 @@ class MyGame extends engine.Scene {
             100,                     // width of camera
             [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
         );
-        this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+        this.mCamera.setBackgroundColor([0.2, 0.2, 0.2, 1]);
         // sets the background to gray
         engine.defaultResources.setGlobalAmbientIntensity(3);
 
@@ -74,14 +74,10 @@ class MyGame extends engine.Scene {
         // }
 
         this.mMsg = new engine.FontRenderable("Status Message");
-        this.mMsg.setColor([0, 0, 0, 1]);
-        this.mMsg.getXform().setPosition(5, 7);
+        this.mMsg.setColor([0.5, 0.5, 0.5, 1]);
+        this.mMsg.getXform().setPosition(0, 7);
         this.mMsg.setTextHeight(3);
 
-        this.mShapeMsg = new engine.FontRenderable("Shape");
-        this.mShapeMsg.setColor([0, 0, 0, 1]);
-        this.mShapeMsg.getXform().setPosition(5, 73);
-        this.mShapeMsg.setTextHeight(2.5);
         this.mPPreset = new engine.ParticlePreset();
     }
 
@@ -108,7 +104,6 @@ class MyGame extends engine.Scene {
         }
 
         this.mMsg.draw(this.mCamera);   
-        this.mShapeMsg.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -131,7 +126,7 @@ class MyGame extends engine.Scene {
 
         if (engine.input.isKeyClicked(engine.input.keys.G)) {
             let x = 20 + Math.random() * 60;
-            let y = 20 + Math.random() * 60;
+            let y = 10 + Math.random() * 60;
             let t = Math.random() > 0.5;
             let m = new Minion(this.kMinionSprite, x, y, t);
             if (this.mDrawTexture) // default is false
@@ -171,13 +166,10 @@ class MyGame extends engine.Scene {
         //engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
         engine.physics.processSet(this.mAllObjs, this.mCollisionInfos);
 
-        let p = this.mHero.getXform().getPosition();
-        msg += "  P(" + engine.physics.getPositionalCorrection() +
-            " " + engine.physics.getRelaxationCount() + ")" +
-            " V(" + engine.physics.getHasMotion() + ")";
+        msg += "  Object Count(" + this.mAllObjs.size() + ")" +
+            " Velocity(" + engine.physics.getHasMotion() + ")" +
+            " Particle(" + this.mCurrentParticle + ")";
         this.mMsg.setText(msg);
-
-        this.mShapeMsg.setText(this.mHero.getRigidBody().getCurrentState());
     }
 }
 
@@ -189,7 +181,7 @@ MyGame.prototype.randomizeVelocity = function()
         let obj = this.mAllObjs.getObjectAt(i);
         let rigidShape = obj.getRigidBody();
         let x = (Math.random() - 0.5) * kSpeed;
-        let y = Math.random() * kSpeed * 0.5;
+        let y = (Math.random() - 0.5) * kSpeed;
         rigidShape.setVelocity(x, y);
         let c = rigidShape.getCenter();
         this.mParticles.addEmitterAt(c[0], c[1], 20, this.mPPreset.Basic());
