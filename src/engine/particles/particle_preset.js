@@ -33,7 +33,7 @@ function _createParticle(atX, atY) {
     
     return p;
 }
-function _createFlame(atX, atY) {
+function _createFlame(atX, atY, climb, spread, colorStart, colorEnd, wind) {
     let life = 30 + Math.random() * 40;
     let p = new FlameParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
     p.setColor([1, 0, 0, 1]);
@@ -41,14 +41,14 @@ function _createFlame(atX, atY) {
     let r = 1.5 + Math.random() * 0.5;
     p.setSize(r, r);
     // final color
-    p.setFinalColor([1, .8, .3, 0.6]);
+    p.setFinalColor(colorEnd);
     
     // velocity on the particle
     let fx = 5 - 10 * Math.random();
     let fy = 10 * Math.random();
     p.setVelocity(fx, fy);
-    p.setAcceleration(0,20);
-    p.setSpread(.5);
+    p.setAcceleration(wind,climb);
+    p.setSpread(spread);
     // size delta
     p.setSizeDelta(0.98);
     
