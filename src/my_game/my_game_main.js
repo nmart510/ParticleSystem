@@ -168,16 +168,16 @@ class MyGame extends engine.Scene {
                 switch(this.mCurrentOption) {
                     case 0: //Default
                         let newDefault = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
-                        newDefault.setColorStart(1,0,0,1);
-                        newDefault.setColorEnd(1,.7,.3,.6);
+                        newDefault.setColorStart(0,0,1,1);
+                        newDefault.setColorEnd(0,.7,.3,.6);
                         break;
                     case 1: //Flame
                         let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
-                        newFlame.setColorStart(0,0,1,1);
-                        newFlame.setColorEnd(0,.7,.3,.6);
+                        newFlame.setColorStart(1,0,0,1);
+                        newFlame.setColorEnd(1,.7,.3,.6);
                         break;
                     case 2: //Dust
-                        let newDust = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        let newDust = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Dust());
                         newDust.setColorStart(0,1,0,1);
                         newDust.setColorEnd(1,0,.3,.6);
                         break;

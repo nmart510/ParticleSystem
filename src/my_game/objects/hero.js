@@ -16,10 +16,10 @@ class Hero extends WASDObj {
         this.mRenderComponent = new engine.SpriteRenderable(spriteTexture);
         this.mRenderComponent.setColor([1, 1, 1, 0]);
         this.mRenderComponent.getXform().setPosition(50, 40);
-        this.mRenderComponent.getXform().setSize(3, 4);
+        this.mRenderComponent.getXform().setSize(6, 8);
         this.mRenderComponent.setElementPixelPositions(0, 120, 0, 180);
 
-        let r = new engine.RigidRectangle(this.getXform(), 3, 4);
+        let r = new engine.RigidRectangle(this.getXform(), 6, 8);
         r.setMass(0);
         this.setRigidBody(r);
         //this.toggleDrawRenderable();
