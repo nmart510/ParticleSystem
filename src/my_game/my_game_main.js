@@ -149,7 +149,8 @@ class MyGame extends engine.Scene {
             this.mPSDrawBounds = !this.mPSDrawBounds;
         if (engine.input.isKeyClicked(engine.input.keys.Q)) {
             if (this.mCamera.isMouseInViewport()) {
-                this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),10,this.mPPreset.Flame(),4000);
+                let flame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+
             }
         }
         if (engine.input.isKeyClicked(engine.input.keys.One))

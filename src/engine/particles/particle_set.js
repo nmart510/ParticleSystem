@@ -29,10 +29,12 @@ class ParticleSet extends GameObjectSet {
     addEmitterAt(x, y, n, func) {
         let e = new ParticleEmitter(x, y, n, func);
         this.mEmitterSet.push(e);
+        return e;
     }
     addFlameAt(x,y,n,func,life) {
         let e = new FlameEmitter(x, y, n, func, life);
         this.mEmitterSet.push(e);
+        return e;
     }
 
     drawMarkers(aCamera) {
