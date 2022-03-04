@@ -80,7 +80,7 @@ class MyGame extends engine.Scene {
         this.mMsg.setTextHeight(3);
 
         //TODO: Make this a util class that the particle emitter base calls upon rather than something called from main
-        this.mPPreset = new engine.ParticlePreset(this.mCamera);
+        this.mPPreset = new engine.ParticlePreset();
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -124,6 +124,12 @@ class MyGame extends engine.Scene {
         }
         if (engine.input.isKeyClicked(engine.input.keys.F)) {
             this.randomizeVelocity();
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.R)) {
+            let newRain = this.mParticles.addRain(20,this.mPPreset.Rain(),12000);
+            newRain.setColorStart(0,0,1,1);
+            newRain.setColorEnd(.7,.7,.7,.6);
+            newRain.setWind(20);
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.C)) {

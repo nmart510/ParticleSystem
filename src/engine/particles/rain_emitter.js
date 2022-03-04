@@ -1,8 +1,8 @@
 import ParticleEmitter from "./particle_emitter.js";
 
-class FlameEmitter extends ParticleEmitter{
-    constructor(px, py, num, createrFunc, lifespan) {
-        super(px, py, num, createrFunc);
+class RainEmitter extends ParticleEmitter{
+    constructor(num, createrFunc, lifespan) {
+        super(0, 0, num, createrFunc);
         this.mLifespan = Date.now() + lifespan;
         this.mWind = 0;
     }
@@ -24,4 +24,4 @@ class FlameEmitter extends ParticleEmitter{
         }
     }
 }
-export default FlameEmitter;
+export default RainEmitter;
