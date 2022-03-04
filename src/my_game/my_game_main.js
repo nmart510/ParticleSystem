@@ -175,6 +175,9 @@ class MyGame extends engine.Scene {
                         let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
                         newFlame.setColorStart(1,0,0,1);
                         newFlame.setColorEnd(1,.7,.3,.6);
+                        newFlame.setClimb(20);
+                        newFlame.setSpread(.4);
+                        newFlame.setWind(10);
                         break;
                     case 2: //Dust
                         let newDust = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Dust());
