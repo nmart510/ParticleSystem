@@ -8,6 +8,26 @@ class FlameEmitter extends ParticleEmitter{
         this.mClimb = 20;
         this.mWind = 0;
     }
+    getSpread(){
+        return this.mSpread;
+    }
+    setSpread(val){
+        this.mSpread = val;
+    }
+    getClimb(){
+        return this.mClimb;
+    }
+    setClimb(val){
+        this.mClimb = val;
+    }
+    getWind(){
+        return this.mWind;
+    }
+    setWind(val){
+        this.mWind = val;
+    }
+
+
     emitParticles(pSet){
         let numToEmit = this.mNumRemains;
         let i, p;
