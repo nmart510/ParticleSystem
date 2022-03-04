@@ -17,14 +17,15 @@ class MyGame extends engine.Scene {
         this.mCamera = null;
 
         this.mMsg = null;
-        this.mCurrentParticle = "Default";
+        
+        this.mParticleOptions = ["Default", "Flame", "Dust"];
+        this.mCurrentOption = 0;
 
         this.mAllObjs = null;
         this.mCollisionInfos = [];
         this.mHero = null;
 
         // Draw controls
-        this.mDrawCollisionInfo = false;
         this.mDrawTexture = false;
         this.mDrawRigidShape = true;
 
@@ -114,17 +115,17 @@ class MyGame extends engine.Scene {
         this.mAllObjs.update(this.mCamera);
         this.mHero.update(this.mCamera);
 
-        if (engine.input.isKeyClicked(engine.input.keys.P)) {
-            engine.physics.togglePositionalCorrection();
-        }
+        // if (engine.input.isKeyClicked(engine.input.keys.P)) {
+        //     engine.physics.togglePositionalCorrection();
+        // }
         if (engine.input.isKeyClicked(engine.input.keys.V)) {
             engine.physics.toggleHasMotion();
         }
-        if (engine.input.isKeyClicked(engine.input.keys.H)) {
+        if (engine.input.isKeyClicked(engine.input.keys.F)) {
             this.randomizeVelocity();
         }
 
-        if (engine.input.isKeyClicked(engine.input.keys.G)) {
+        if (engine.input.isKeyClicked(engine.input.keys.C)) {
             let x = 20 + Math.random() * 60;
             let y = 10 + Math.random() * 60;
             let t = Math.random() > 0.5;
@@ -136,6 +137,17 @@ class MyGame extends engine.Scene {
             this.mAllObjs.addToSet(m);
 
             this.mParticles.addEmitterAt(x, y, 200, this.mPPreset.Basic());
+        }
+        
+        if (engine.input.isKeyClicked(engine.input.keys.Left)) {
+            if (this.mCurrentOption > 0) {
+                this.mCurrentOption--;
+            } 
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.Right)) {
+            if (this.mCurrentOption < this.mParticleOptions.length - 1) {
+                this.mCurrentOption++;
+            }
         }
         
         // Particle System
@@ -159,17 +171,17 @@ class MyGame extends engine.Scene {
 
         this.mHero.keyControl();
 
-        if (this.mDrawCollisionInfo)
-            this.mCollisionInfos = [];
-        else
-            this.mCollisionInfos = null;
+        if (engine.input.isKeyClicked(engine.input.keys.H)) {
+            this.randomizeVelocity();
+        }
+
         //engine.physics.processObjToSet(this.mHero, this.mPlatforms, this.mCollisionInfos);
         //engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
         engine.physics.processSet(this.mAllObjs, this.mCollisionInfos);
 
         msg += "  Object Count(" + this.mAllObjs.size() + ")" +
             " Velocity(" + engine.physics.getHasMotion() + ")" +
-            " Particle(" + this.mCurrentParticle + ")";
+            " Particle(" + this.mParticleOptions[this.mCurrentOption] + ")";
         this.mMsg.setText(msg);
     }
 }
