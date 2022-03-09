@@ -2,6 +2,7 @@
 import engine from "../../engine/index.js";
 import FlameParticle from "./flame_particle.js";
 import RainParticle from "./rain_particle.js";
+import BurstParticle from "./flame_particle.js";
 
 class ParticlePreset{
     Basic(){
@@ -15,6 +16,9 @@ class ParticlePreset{
     }
     Dust() {
         return _createDust;
+    }
+    Burst() {
+        return _createBurst;
     }
 }
 function _createDust(atX, atY, colorStart, colorEnd) {
@@ -105,6 +109,30 @@ function _createRain(colorStart, colorEnd, wind) {
     p.setAcceleration(2*wind,2*fy);
     // size delta
     p.setSizeDelta(1);
+    
+    return p;
+}
+function _createBurst(atX, atY, colorStart, colorEnd, theta, radius) {
+    let life = 100 + Math.random() * 200;
+    
+    // size of the particle
+    let r = 1.5 + Math.random() * 0.5;
+    
+    let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+    p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+    p.setSize(r, r);
+    // final color
+    // let fr = 3.5 + Math.random();
+    
+    p.setFinalColor(colorEnd);
+
+    let fx = Math.cos(theta) * radius;
+    let fy = Math.sin(theta) * radius;
+    // velocity on the particle
+    p.setVelocity(fx, fy);
+    
+    // size delta
+    p.setSizeDelta(0.95);
     
     return p;
 }

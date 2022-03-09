@@ -18,7 +18,7 @@ class MyGame extends engine.Scene {
 
         this.mMsg = null;
         
-        this.mParticleOptions = ["Default", "Flame", "Dust"];
+        this.mParticleOptions = ["Default", "Flame", "Dust", "Burst"];
         this.mCurrentOption = 0;
 
         this.mAllObjs = null;
@@ -183,6 +183,11 @@ class MyGame extends engine.Scene {
                         let newDust = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Dust());
                         newDust.setColorStart(0,1,0,1);
                         newDust.setColorEnd(1,0,.3,.6);
+                        break;
+                    case 3: //Burst
+                        let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Burst(), 200);
+                        newBurst.setColorStart(0,1,0,1);
+                        newBurst.setColorEnd(1,0,.3,.6);
                         break;
                 }
                 
