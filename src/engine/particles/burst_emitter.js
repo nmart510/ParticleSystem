@@ -27,7 +27,8 @@ class BurstEmitter extends ParticleEmitter {
         let i, p;
         let theta = 0;
         for (i = 0; i < numToEmit; i++) {
-            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, this.mColorEnd, theta, radius);
+            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, 
+                this.mColorEnd, theta, this.mRadius);
             pSet.addToSet(p);
             theta += (Math.PI) / 6.0;
         }
