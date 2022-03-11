@@ -28,6 +28,12 @@ class FlameEmitter extends ParticleEmitter{
     setWind(val){
         this.mWind = val;
     }
+    getIntensity(){
+        return this.mNumRemains; 
+    }
+    setIntensity(num){
+        this.mNumRemains = num; 
+    }
 
 
     emitParticles(pSet){

@@ -41,11 +41,12 @@ class RainEmitter extends ParticleEmitter{
         
         // velocity on the particle
         let fx = wind;
-        let fy = -100;
+        let fy = -80;
         p.setVelocity(fx, fy);
-        p.setAcceleration(2*wind,2*fy);
+        p.setAcceleration(0,0);
         // size delta
         p.setSizeDelta(1);
+        p.setDrag(1)
         
         return p;
     }
