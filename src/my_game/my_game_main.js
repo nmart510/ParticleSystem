@@ -185,7 +185,7 @@ class MyGame extends engine.Scene {
                         newDust.setColorEnd(1,0,.3,.6);
                         break;
                     case 3: //Burst
-                        let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Burst(), 50);
+                        let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Burst(), 50, 10);
                         newBurst.setColorStart(0,1,0,1);
                         newBurst.setColorEnd(1,0,.3,.6);
                         break;

@@ -2,7 +2,6 @@
 import engine from "../../engine/index.js";
 import FlameParticle from "./flame_particle.js";
 import RainParticle from "./rain_particle.js";
-import BurstParticle from "./flame_particle.js";
 
 class ParticlePreset{
     Basic(){
