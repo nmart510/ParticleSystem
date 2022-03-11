@@ -15,6 +15,6 @@ void main(void) {
     // assign to gl_Position to pass the vertex to the fragment shader
     gl_Position = uCameraXformMatrix * uModelXformMatrix * vec4(aVertexPosition, 1.0); 
 
-    // only use for line drawing
+    // only use for line drawing and point drawing
     gl_PointSize = uPointSize;
 }

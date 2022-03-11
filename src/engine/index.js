@@ -42,6 +42,7 @@ import TextureRenderable from "./renderables/texture_renderable.js";
 import SpriteRenderable from "./renderables/sprite_renderable.js";
 import SpriteAnimateRenderable from "./renderables/sprite_animate_renderable.js";
 import FontRenderable from "./renderables/font_renderable.js";
+import PixelRenderable from "./renderables/pixel_renderable.js";
 import LineRenderable from "./renderables/line_renderable.js";
 import LightRenderable from "./renderables/light_renderable.js";
 import IllumRenderable from "./renderables/illum_renderable.js";
@@ -121,7 +122,7 @@ export default {
     
     // Renderables
     Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable, 
-    FontRenderable, LineRenderable, LightRenderable, IllumRenderable,
+    FontRenderable, PixelRenderable, LineRenderable, LightRenderable, IllumRenderable,
 
     // Game Objects
     GameObject, GameObjectSet,

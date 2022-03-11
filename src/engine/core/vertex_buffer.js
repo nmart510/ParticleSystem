@@ -42,6 +42,13 @@ let mVerticesOfLine = [
     -0.5, -0.5, 0.0
 ];
 
+// For point drawing: to support particle engine
+let mPointVertexBuffer = null;
+function getPointVertexBuffer() { return mPointVertexBuffer; }
+let mPointVertex = [
+    0.0, 0.0, 0.0
+];
+
 function cleanUp() {
     let gl = glSys.get();
     if (mGLVertexBuffer !== null) {
@@ -57,6 +64,11 @@ function cleanUp() {
     if (mLineVertexBuffer !== null) {
         gl.deleteBuffer(mLineVertexBuffer);
         mLineVertexBuffer = null;
+    }
+
+    if (mPointVertexBuffer !== null) {
+        gl.deleteBuffer(mPointVertexBuffer);
+        mPointVertexBuffer = null;
     }
 }
 
@@ -94,12 +106,24 @@ function init() {
     // Connect the vertexBuffer to the ARRAY_BUFFER global gl binding point.
     gl.bindBuffer(gl.ARRAY_BUFFER, mLineVertexBuffer);
 
-    // Put the verticesOfSquare into the vertexBuffer, as non-changing drawing data (STATIC_DRAW)
+    // Put the verticesOfPoint into the vertexBuffer, as non-changing drawing data (STATIC_DRAW)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mVerticesOfLine), gl.STATIC_DRAW);
+    // #endregion
+
+    // #region: support for point vertex position 
+    // Step A: Allocate and store vertex positions into the webGL context
+    // Create a buffer on the gGL context for our vertex positions
+    mPointVertexBuffer = gl.createBuffer();
+
+    // Connect the vertexBuffer to the ARRAY_BUFFER global gl binding point.
+    gl.bindBuffer(gl.ARRAY_BUFFER, mPointVertexBuffer);
+
+    // Put the verticesOfSquare into the vertexBuffer, as non-changing drawing data (STATIC_DRAW)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mPointVertex), gl.STATIC_DRAW);
     // #endregion
 }
 
 export {
     init, cleanUp,
-    get, getTexCoord, getLineVertexBuffer
+    get, getTexCoord, getLineVertexBuffer, getPointVertexBuffer
 }

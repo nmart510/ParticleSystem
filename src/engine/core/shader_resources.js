@@ -10,6 +10,7 @@ import SimpleShader from "../shaders/simple_shader.js";
 import TextureShader from "../shaders/texture_shader.js";
 import SpriteShader from "../shaders/sprite_shader.js";
 import LineShader from "../shaders/line_shader.js";
+import PointShader from "../shaders/point_shader.js";
 import LightShader from "../shaders/light_shader.js";
 import IllumShader from "../shaders/illum_shader.js";
 import ShadowCasterShader from "../shaders/shadow_caster_shader.js";
@@ -26,6 +27,10 @@ let kTextureVS = "src/glsl_shaders/texture_vs.glsl";  // Path to the VertexShade
 let kTextureFS = "src/glsl_shaders/texture_fs.glsl";  // Path to the texture FragmentShader
 let mTextureShader = null;
 let mSpriteShader = null;
+
+// Point Shader
+let kPointFS = "src/glsl_shaders/point_fs.glsl"; // Path to the Point FragmentShader
+let mPointShader = null;
 
 // Line Shader
 let kLineFS = "src/glsl_shaders/line_fs.glsl";        // Path to the Line FragmentShader
@@ -53,6 +58,7 @@ function createShaders() {
     mConstColorShader = new SimpleShader(kSimpleVS, kSimpleFS);
     mTextureShader = new TextureShader(kTextureVS, kTextureFS);
     mSpriteShader = new SpriteShader(kTextureVS, kTextureFS);
+    mPointShader = new PointShader(kSimpleVS, kPointFS);
     mLineShader =  new LineShader(kSimpleVS, kLineFS);
     mLightShader = new LightShader(kTextureVS, kLightFS);
     mIllumShader = new IllumShader(kTextureVS, kIllumFS);
@@ -65,6 +71,7 @@ function cleanUp() {
     mConstColorShader.cleanUp();
     mTextureShader.cleanUp();
     mSpriteShader.cleanUp();
+    mPointShader.cleanUp();
     mLineShader.cleanUp();
     mLightShader.cleanUp();
     mIllumShader.cleanUp();
@@ -76,6 +83,7 @@ function cleanUp() {
     text.unload(kSimpleFS);
     text.unload(kTextureVS);
     text.unload(kTextureFS);
+    text.unload(kPointFS);
     text.unload(kLineFS);
     text.unload(kLightFS);
     text.unload(kIllumFS);
@@ -92,6 +100,7 @@ function init() {
                 text.load(kSimpleVS),
                 text.load(kTextureFS),
                 text.load(kTextureVS),
+                text.load(kPointFS),
                 text.load(kLineFS),
                 text.load(kLightFS),
                 text.load(kIllumFS),
@@ -109,6 +118,7 @@ function init() {
 function getConstColorShader() { return mConstColorShader; }
 function getTextureShader() { return mTextureShader; }
 function getSpriteShader() { return mSpriteShader; }
+function getPointShader() { return mPointShader; }
 function getLineShader() { return mLineShader; }
 function getLightShader() { return mLightShader; }
 function getIllumShader() { return mIllumShader; }
@@ -117,6 +127,6 @@ function getShadowCasterShader() { return mShadowCasterShader; }
 function getParticleShader() { return mParticleShader }
 
 export {init, cleanUp, 
-        getConstColorShader, getTextureShader, getSpriteShader, getLineShader,
+        getConstColorShader, getTextureShader, getSpriteShader, getPointShader, getLineShader,
         getLightShader, getIllumShader, getShadowReceiverShader, getShadowCasterShader,
         getParticleShader}
