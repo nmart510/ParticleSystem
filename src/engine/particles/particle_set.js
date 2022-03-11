@@ -13,6 +13,7 @@ import GameObjectSet from "../game_objects/game_object_set.js";
 import FlameEmitter from "./flame_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
 import RainEmitter from "./rain_emitter.js";
+import DustEmitter from "./dust_emitter.js";
 import BurstEmitter from "./burst_emitter.js";
 import ElectricityEmitter from "./electricity_emitter.js";
 
@@ -29,28 +30,33 @@ class ParticleSet extends GameObjectSet {
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // restore alpha blending
     }
 
-    addEmitterAt(x, y, n, func) {
-        let e = new ParticleEmitter(x, y, n, func);
+    addEmitterAt(x, y, n) {
+        let e = new ParticleEmitter(x, y, n);
         this.mEmitterSet.push(e);
         return e;
     }
-    addFlameAt(x,y,n,func,life) {
-        let e = new FlameEmitter(x, y, n, func, life);
+    addFlameAt(x,y,n,life) {
+        let e = new FlameEmitter(x, y, n, life);
         this.mEmitterSet.push(e);
         return e;
     }
-    addRain(n,func,life) {
-        let e = new RainEmitter(n, func, life);
+    addRain(n,life) {
+        let e = new RainEmitter(n, life);
         this.mEmitterSet.push(e);
         return e;
     }
-    addBurstAt(x,y,n,func, r, p, s) {
-        let e = new BurstEmitter(x, y, n, func, r, p, s);
+    addDust(n,life) {
+        let e = new DustEmitter(n, life);
         this.mEmitterSet.push(e);
         return e;
     }
-    addElectricityAt(x,y,n,func, r, p, s) {
-        let e = new ElectricityEmitter(x, y, n, func, r, p, s);
+    addBurstAt(x,y,n, r, p, s) {
+        let e = new BurstEmitter(x, y, n, r, p, s);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    addElectricityAt(x,y,n, r, p, s) {
+        let e = new ElectricityEmitter(x, y, n, r, p, s);
         this.mEmitterSet.push(e);
         return e;
     }
