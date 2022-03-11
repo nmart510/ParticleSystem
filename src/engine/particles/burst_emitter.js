@@ -14,24 +14,15 @@ class BurstEmitter extends ParticleEmitter {
     }
 
     emitParticles(pSet) {
-        let numToEmit = 0;
-        if (this.mNumRemains < this.kMinToEmit) {
-            // If only a few are left, emits all of them
-            numToEmit = this.mNumRemains;
-        } else {
-            // Otherwise, emits about 20% of what's left
-            numToEmit = Math.trunc(Math.random() * 0.2 * this.mNumRemains);
-        }
-        // Left for future emitting.                            
-        this.mNumRemains -= numToEmit;
         let i, p;
         let theta = 0;
-        for (i = 0; i < numToEmit; i++) {
+        for (i = 0; i < this.mNumRemains; i++) {
             p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, 
                 this.mColorEnd, theta, this.mRadius);
             pSet.addToSet(p);
-            theta += (Math.PI) / 6.0;
+            theta += (2*Math.PI) / (this.mNumRemains);
         }
+        this.mNumRemains = 0;
     }
 }
 
