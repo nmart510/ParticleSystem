@@ -10,12 +10,12 @@ import engine from "../../engine/index.js";
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 class BurstEmitter extends ParticleEmitter {
-    constructor(px, py, num, radius, pulses, spacing) {
+    constructor(px, py, num) {
         super(px, py, num);
-        this.mRadius = radius;
+        this.mRadius = 50;
         this.mNumParticles = num;
-        this.mNumRemains = pulses;
-        this.mSpacing = spacing;
+        this.mNumRemains = 4;
+        this.mSpacing = 6;
         this.mCount = 0;
         this.mDrag = 1;
         this.mAcceleration = vec2.fromValues(0, 0);
@@ -57,7 +57,7 @@ class BurstEmitter extends ParticleEmitter {
     setAcceleration(a) {
         this.mAcceleration = a;
     }
-    
+
     emitParticles(pSet) {
         if (this.mCount % this.mSpacing == 0){
             let i, p;
