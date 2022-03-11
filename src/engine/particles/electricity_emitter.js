@@ -10,14 +10,14 @@ import engine from "../../engine/index.js";
 class ElectricityEmitter extends ParticleEmitter {
     constructor(px, py, num) {
         super(px, py, num);
-        this.mRadius = 10;
+        this.mRadius = 60;
         this.mNumParticles = num;
         this.mNumRemains = 1;
         this.mSpacing = 6;
         this.mCount = 0;
         this.mDrag = 1;
         this.mAcceleration = vec2.fromValues(0, 0);
-        this.mSpread = 1;
+        this.mSpread = 2;
     }
 
     getRadius() {
@@ -79,7 +79,7 @@ class ElectricityEmitter extends ParticleEmitter {
     }
     
     createBurst(atX, atY, colorStart, colorEnd, theta, radius) {
-        let life = 100 + Math.random() * 200;
+        let life = 1 + Math.random() * 20;
         
         // size of the particle
         let r = 1.5 + Math.random() * 0.5;
@@ -96,7 +96,7 @@ class ElectricityEmitter extends ParticleEmitter {
         let fy = Math.sin(theta) * radius;
         // velocity on the particle
         p.setVelocity(fx, fy);
-        p.setDrag(.95);
+        p.setDrag(.9);
         p.setAcceleration(0, 0);
         // size delta
         p.setSizeDelta(.99);
