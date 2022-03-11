@@ -9,5 +9,6 @@ class Color {
     static MAGENTA = vec4.fromValues(1, 0, 1, 1);
     static BLACK = vec4.fromValues(0, 0, 0, 1);
     static WHITE = vec4.fromValues(1, 1, 1, 1);
+    static CLEAR = vec4.fromValues(0, 0, 0, 0);
 }
 export default Color;
