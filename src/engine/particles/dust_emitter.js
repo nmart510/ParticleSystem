@@ -1,5 +1,5 @@
 import ParticleEmitter from "./particle_emitter.js";
-import DustParticle from "./rain_particle.js";
+import DustParticle from "./dust_particle.js";
 import engine from "../../engine/index.js";
 
 class DustEmitter extends ParticleEmitter{
@@ -15,14 +15,16 @@ class DustEmitter extends ParticleEmitter{
         this.mWind = val;
     }
     emitParticles(pSet){
-        let numToEmit = this.mNumRemains;
-        let i, p;
-        for (i = 0; i < numToEmit; i++) {
-            p = this.createDust(this.mColorBegin, this.mColorEnd, this.mWind);
-            pSet.addToSet(p);
-        }
-        if (Date.now() > this.mLifespan){
-            this.mNumRemains = 0;
+        if (Date.now()%3 == 0){
+            let numToEmit = this.mNumRemains;
+            let i, p;
+            for (i = 0; i < numToEmit; i++) {
+                p = this.createDust(this.mColorBegin, this.mColorEnd, this.mWind);
+                pSet.addToSet(p);
+            }
+            if (Date.now() > this.mLifespan){
+                this.mNumRemains = 0;
+            }
         }
         
     }
@@ -30,7 +32,7 @@ class DustEmitter extends ParticleEmitter{
     createDust(colorStart, colorEnd, wind) {
         let life = 120 + Math.random() * 480;
         let x = (Math.random()-.5) * 200;
-        let y = (Math.random()-.5) * 80;
+        let y = (Math.random()-.5) * 160;
         let p = new DustParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle

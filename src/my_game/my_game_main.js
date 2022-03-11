@@ -177,9 +177,10 @@ class MyGame extends engine.Scene {
                         newFlame.setWind(10);
                         break;
                     case 2: //Dust
-                        let newDust = this.mParticles.addDust(1,100);
+                        let newDust = this.mParticles.addDust(1,12000);
                         newDust.setColorStart(1,1,.6,1);
                         newDust.setColorEnd(0,0,0,0);
+                        newDust.setWind(-20);
                         break;
                     case 3: //Burst
                         let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
