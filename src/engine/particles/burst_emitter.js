@@ -3,13 +3,15 @@
  * 
  */
 import ParticleEmitter from "./particle_emitter.js";
+import Particle from "./particle.js";
+import engine from "../../engine/index.js";
 "use strict";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 class BurstEmitter extends ParticleEmitter {
-    constructor(px, py, num, createrFunc, radius, pulses, spacing) {
-        super(px, py, num, createrFunc);
+    constructor(px, py, num, radius, pulses, spacing) {
+        super(px, py, num);
         this.mRadius = radius;
         this.mNumParticles = num;
         this.mNumRemains = pulses;
@@ -22,7 +24,7 @@ class BurstEmitter extends ParticleEmitter {
             let i, p;
             let theta = 0;
             for (i = 0; i < this.mNumParticles; i++) {
-                p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, 
+                p = this.createBurst(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, 
                     this.mColorEnd, theta, this.mRadius);
                 pSet.addToSet(p);
                 theta += (2*Math.PI) / (this.mNumParticles);
@@ -30,6 +32,31 @@ class BurstEmitter extends ParticleEmitter {
             this.mNumRemains -= 1;
         }
         this.mCount++;
+    }
+    
+    createBurst(atX, atY, colorStart, colorEnd, theta, radius) {
+        let life = 100 + Math.random() * 200;
+        
+        // size of the particle
+        let r = 1.5 + Math.random() * 0.5;
+        
+        let p = new Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+        p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+        p.setSize(r, r);
+        // final color
+        // let fr = 3.5 + Math.random();
+        
+        p.setFinalColor(colorEnd);
+
+        let fx = Math.cos(theta) * radius;
+        let fy = Math.sin(theta) * radius;
+        // velocity on the particle
+        p.setVelocity(fx, fy);
+        
+        // size delta
+        p.setSizeDelta(0.95);
+        
+        return p;
     }
 }
 

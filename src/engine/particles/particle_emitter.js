@@ -2,12 +2,14 @@
  * File: particle_emitter.js
  * 
  */
+import Particle from "./particle.js";
+import engine from "../../engine/index.js";
 "use strict";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 class ParticleEmitter {
-    constructor(px, py, num, createrFunc) {
+    constructor(px, py, num) {
         // Emitter position
         this.mEmitPosition = [px, py];
 
@@ -15,7 +17,6 @@ class ParticleEmitter {
         this.mNumRemains = num;
 
         // Function to create particles (user defined)
-        this.mParticleCreator = createrFunc;
         this.mColorBegin = [1,1,1,1];
         this.mColorEnd = [1,1,1,1];
     }
@@ -49,9 +50,29 @@ class ParticleEmitter {
         this.mNumRemains -= numToEmit;
         let i, p;
         for (i = 0; i < numToEmit; i++) {
-            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, this.mColorEnd);
+            p = this.createParticle(this.mEmitPosition[0], this.mEmitPosition[1],this.mColorBegin, this.mColorEnd);
             pSet.addToSet(p);
         }
+    }
+    createParticle(atX, atY, colorStart, colorEnd) {
+        let life = 30 + Math.random() * 200;
+        let p = new Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+        p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+        // size of the particle
+        let r = 5.5 + Math.random() * 0.5;
+        p.setSize(r, r);
+        // final color
+        p.setFinalColor(colorEnd);
+        
+        // velocity on the particle
+        let fx = 10 - 20 * Math.random();
+        let fy = 10 * Math.random();
+        p.setVelocity(fx, fy);
+        
+        // size delta
+        p.setSizeDelta(0.98);
+        
+        return p;
     }
 
     //Default Value

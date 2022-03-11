@@ -19,7 +19,7 @@ class Particle {
         // position control
         this.mVelocity = vec2.fromValues(0, 0);
         this.mAcceleration = particleSystem.getSystemAcceleration();
-        this.mDrag = 0.95;
+        this.mDrag = .95;
 
         // Color control
         this.mDeltaColor = [0, 0, 0, 0];

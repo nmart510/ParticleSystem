@@ -33,7 +33,6 @@ class MyGame extends engine.Scene {
         this.mParticles = null;
         this.mPSDrawBounds = false;
         this.mPSCollision = true;
-        this.mPPreset = null;
     }
 
 
@@ -78,9 +77,6 @@ class MyGame extends engine.Scene {
         this.mMsg.setColor([0.5, 0.5, 0.5, 1]);
         this.mMsg.getXform().setPosition(0, 7);
         this.mMsg.setTextHeight(3);
-
-        //TODO: Make this a util class that the particle emitter base calls upon rather than something called from main
-        this.mPPreset = new engine.ParticlePreset();
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -126,7 +122,7 @@ class MyGame extends engine.Scene {
             this.randomizeVelocity();
         }
         if (engine.input.isKeyClicked(engine.input.keys.R)) {
-            let newRain = this.mParticles.addRain(20,this.mPPreset.Rain(),12000);
+            let newRain = this.mParticles.addRain(20,12000);
             newRain.setColorStart(0,0,1,1);
             newRain.setColorEnd(.7,.7,.7,.6);
             newRain.setWind(20);
@@ -143,7 +139,8 @@ class MyGame extends engine.Scene {
                 m.toggleDrawRigidShape();
             this.mAllObjs.addToSet(m);
 
-            this.mParticles.addEmitterAt(x, y, 200, this.mPPreset.Basic());
+            this.mParticles.addEmitterAt(x, y, 200
+                );
         }
         
         if (engine.input.isKeyClicked(engine.input.keys.Left)) {
@@ -167,12 +164,12 @@ class MyGame extends engine.Scene {
             if (this.mCamera.isMouseInViewport()) {
                 switch(this.mCurrentOption) {
                     case 0: //Default
-                        let newDefault = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Basic());
+                        let newDefault = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
                         newDefault.setColorStart(0,0,1,1);
                         newDefault.setColorEnd(0,.7,.3,.6);
                         break;
                     case 1: //Flame
-                        let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,this.mPPreset.Flame(),4000);
+                        let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,4000);
                         newFlame.setColorStart(1,0,0,1);
                         newFlame.setColorEnd(1,.7,.3,.6);
                         newFlame.setClimb(20);
@@ -180,12 +177,12 @@ class MyGame extends engine.Scene {
                         newFlame.setWind(10);
                         break;
                     case 2: //Dust
-                        let newDust = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Dust());
+                        let newDust = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
                         newDust.setColorStart(0,1,0,1);
                         newDust.setColorEnd(1,0,.3,.6);
                         break;
                     case 3: //Burst
-                        let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100,this.mPPreset.Burst(), 50, 4, 6);
+                        let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100, 50, 4, 6);
                         newBurst.setColorStart(0,1,0,1);
                         newBurst.setColorEnd(1,0,.3,.6);
                         break;
