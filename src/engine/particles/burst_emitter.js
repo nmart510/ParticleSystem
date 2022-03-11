@@ -17,8 +17,47 @@ class BurstEmitter extends ParticleEmitter {
         this.mNumRemains = pulses;
         this.mSpacing = spacing;
         this.mCount = 0;
+        this.mDrag = 1;
+        this.mAcceleration = vec2.fromValues(0, 0);
     }
 
+    getRadius() {
+        return this.mRadius;
+    }
+    setRadius(r) {
+        this.mRadius = r;
+    }
+    getNumParticles() {
+        return this.mNumParticles;
+    }
+    setNumParticles(num) {
+        this.mNumParticles = num;
+    }
+    getPulses() {
+        return this.mNumRemains;
+    }
+    setPulses(pulses) {
+        this.mNumRemains = pulses;
+    }
+    getSpacing() {
+        return this.mSpacing;
+    }
+    setSpacing(s) {
+        this.mSpacing = s;
+    }
+    getDrag() {
+        return this.mDrag;
+    }
+    setDrag(d) {
+        this.mDrag = d;
+    }
+    getAcceleration() {
+        return this.mAcceleration;
+    }
+    setAcceleration(a) {
+        this.mAcceleration = a;
+    }
+    
     emitParticles(pSet) {
         if (this.mCount % this.mSpacing == 0){
             let i, p;
@@ -52,7 +91,8 @@ class BurstEmitter extends ParticleEmitter {
         let fy = Math.sin(theta) * radius;
         // velocity on the particle
         p.setVelocity(fx, fy);
-        
+        p.setDrag(1);
+        p.setAcceleration(0, 0);
         // size delta
         p.setSizeDelta(0.95);
         
