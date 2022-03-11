@@ -43,8 +43,8 @@ class ParticleSet extends GameObjectSet {
         this.mEmitterSet.push(e);
         return e;
     }
-    addBurstAt(x,y,n,func, r, p) {
-        let e = new BurstEmitter(x, y, n, func, r, p);
+    addBurstAt(x,y,n,func, r, p, s) {
+        let e = new BurstEmitter(x, y, n, func, r, p, s);
         this.mEmitterSet.push(e);
         return e;
     }
