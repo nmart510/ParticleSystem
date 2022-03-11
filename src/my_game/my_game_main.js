@@ -18,7 +18,7 @@ class MyGame extends engine.Scene {
 
         this.mMsg = null;
         
-        this.mParticleOptions = ["Default", "Flame", "Dust", "Burst"];
+        this.mParticleOptions = ["Default", "Flame", "Dust", "Burst", "Electric"];
         this.mCurrentOption = 0;
 
         this.mAllObjs = null;
@@ -186,6 +186,11 @@ class MyGame extends engine.Scene {
                         newBurst.setColorStart(0,1,0,1);
                         newBurst.setColorEnd(1,0,.3,.6);
                         break;
+                    case 4: //Electric
+                        let newElectric = this.mParticles.addElectricityAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
+                        newElectric.setColorStart(0,1,1,1);
+                        newElectric.setColorEnd(1,1,1,.6);
+                    break;
                 }
                 
             }

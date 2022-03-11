@@ -14,6 +14,7 @@ import FlameEmitter from "./flame_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
 import RainEmitter from "./rain_emitter.js";
 import BurstEmitter from "./burst_emitter.js";
+import ElectricityEmitter from "./electricity_emitter.js";
 
 class ParticleSet extends GameObjectSet {
     constructor() {
@@ -45,6 +46,11 @@ class ParticleSet extends GameObjectSet {
     }
     addBurstAt(x,y,n,func, r, p, s) {
         let e = new BurstEmitter(x, y, n, func, r, p, s);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    addElectricityAt(x,y,n,func, r, p, s) {
+        let e = new ElectricityEmitter(x, y, n, func, r, p, s);
         this.mEmitterSet.push(e);
         return e;
     }
