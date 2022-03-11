@@ -187,7 +187,7 @@ class MyGame extends engine.Scene {
                         newBurst.setColorEnd(1,0,.3,.6);
                         break;
                     case 4: //Electric
-                        let newElectric = this.mParticles.addElectricityAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
+                        let newElectric = this.mParticles.addElectricityAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),10);
                         newElectric.setColorStart(0,1,1,1);
                         newElectric.setColorEnd(1,1,1,.6);
                     break;

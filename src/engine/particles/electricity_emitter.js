@@ -10,9 +10,9 @@ import engine from "../../engine/index.js";
 class ElectricityEmitter extends ParticleEmitter {
     constructor(px, py, num) {
         super(px, py, num);
-        this.mRadius = 50;
+        this.mRadius = 10;
         this.mNumParticles = num;
-        this.mNumRemains = 4;
+        this.mNumRemains = 1;
         this.mSpacing = 6;
         this.mCount = 0;
         this.mDrag = 1;
@@ -99,7 +99,7 @@ class ElectricityEmitter extends ParticleEmitter {
         p.setDrag(.95);
         p.setAcceleration(0, 0);
         // size delta
-        p.setSizeDelta(0.95);
+        p.setSizeDelta(.99);
         p.setSpread(this.mSpread);
         
         return p;
