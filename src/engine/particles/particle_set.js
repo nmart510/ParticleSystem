@@ -13,6 +13,7 @@ import GameObjectSet from "../game_objects/game_object_set.js";
 import FlameEmitter from "./flame_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
 import RainEmitter from "./rain_emitter.js";
+import SnowEmitter from "./snow_emitter.js";
 import DustEmitter from "./dust_emitter.js";
 import BurstEmitter from "./burst_emitter.js";
 import ElectricityEmitter from "./electricity_emitter.js";
@@ -42,6 +43,11 @@ class ParticleSet extends GameObjectSet {
     }
     addRain(n,life) {
         let e = new RainEmitter(n, life);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    addSnow(n,life) {
+        let e = new SnowEmitter(n, life);
         this.mEmitterSet.push(e);
         return e;
     }
