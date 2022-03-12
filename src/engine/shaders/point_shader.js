@@ -27,11 +27,11 @@ class PointShader extends SimpleShader {
         // first call the super class' activate
         super.activate(pixelColor, trsMatrix, cameraMatrix);
 
-        // now our own functionality: load the line pont size
+        // now our own functionality: load the pixel size
         let gl = glSys.get();
         gl.uniform1f(this.mPointSizeRef, this.mPointSize);
 
-        // re-bind the vertex position attribute to the line's buffer
+        // re-bind the vertex position attribute to the pixel's buffer
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer.getPointVertexBuffer());
         gl.vertexAttribPointer(this.mVertexPositionRef,  // this is defined in SimpleShader
             3,              // each element is a 3-float (x,y.z)
@@ -43,7 +43,7 @@ class PointShader extends SimpleShader {
     }
 
     setPointSize(w) { 
-        this.mPointSize = w; 
+        this.mPointSize = w;
     }
 }
 

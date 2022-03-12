@@ -7,6 +7,7 @@
 import * as loop from "../core/loop.js";
 import * as particleSystem from "../components/particle_system.js";
 import ParticleRenderable from "../renderables/particle_renderable.js";
+import PixelRenderable from "../renderables/pixel_renderable.js";
 import * as debugDraw from "../core/debug_draw.js";
 
 let kSizeFactor = 0.2;
@@ -14,6 +15,7 @@ let kSizeFactor = 0.2;
 class Particle {
     constructor(texture, x, y, life) {
         this.mRenderComponent = new ParticleRenderable(texture);
+        //this.mRenderComponent = new PixelRenderable(texture);
         this.setPosition(x, y);
 
         // position control

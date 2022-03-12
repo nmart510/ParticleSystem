@@ -42,18 +42,26 @@ class PixelRenderable {
         let gl = glSys.get();
         if (this.mShowPoint) {
             //gl.drawArrays(gl.LINE_STRIP, 0, 2);
-            gl.drawArrays(gl.POINTS, 0, 2);
+            gl.drawArrays(gl.POINTS, 0, 1);
         }
     }
 
     setShowPoint(b) { this.mShowPoint = b; }
+
+    //Size Getters and Setters
     setSize(s) { this.mPointSize = s; }
+    getSize() { return this.mPointSize; }
+
+    //Position Getters and Setters
     setPosition(x, y) {
         this.mPointLoc[0] = x;
         this.mPointLoc[1] = y;
     }
+    getPostion() { return this.mPointLoc; }
 
-    //getXform() { return this.mXform; }
+    getXform() { return this.mXform; } //Xform can result in unexpected behavior
+
+    //Color Getters and Setters
     setColor(color) { this.mColor = color; }
     getColor() { return this.mColor; }
 }
