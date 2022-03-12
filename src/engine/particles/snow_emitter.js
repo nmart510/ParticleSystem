@@ -28,13 +28,13 @@ class SnowEmitter extends ParticleEmitter{
     }
         
     createSnow(colorStart, colorEnd, wind) {
-        let life = 600;
+        let life = 300;
         let x = (Math.random()-.5) * 200;
         let y = 80 + Math.random();
         let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
-        let r = .5;
+        let r = 0.5 + Math.random() * 0.5;
         p.setSize(r, r);
         // final color
         p.setFinalColor(colorEnd);
@@ -43,7 +43,7 @@ class SnowEmitter extends ParticleEmitter{
         let fx = wind;
         let fy = -5;
         p.setVelocity(fx, fy);
-        p.setAcceleration(0,0);
+        p.setAcceleration(0, -10);
         // size delta
         p.setSizeDelta(1);
         p.setDrag(1)
