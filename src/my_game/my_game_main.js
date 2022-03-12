@@ -5,6 +5,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../engine/index.js";
+import FlameParticle from "../engine/particles/flame_particle.js";
 import PixelRenderable from "../engine/renderables/pixel_renderable.js";
 import Hero from "./objects/hero.js";
 import Minion from "./objects/minion.js";
@@ -53,7 +54,7 @@ class MyGame extends engine.Scene {
         this.mPixel = new PixelRenderable();
         this.mPixel2 = new PixelRenderable();
         this.mPixel3 = new PixelRenderable();
-        //this.mPixel4 = new PixelRenderable();
+        this.mPixel4 = new FlameParticle();
 
         // Step A: set up the cameras
         this.mCamera = new engine.Camera(
@@ -115,7 +116,7 @@ class MyGame extends engine.Scene {
         this.mPixel.draw(this.mCamera);
         this.mPixel2.draw(this.mCamera);
         this.mPixel3.draw(this.mCamera);
-        //this.mPixel4.draw(this.mCamera);
+        this.mPixel4.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -161,7 +162,7 @@ class MyGame extends engine.Scene {
             console.log("1: " + this.mPixel.getSize());
             console.log("2: " + this.mPixel2.getSize());
             console.log("3: " + this.mPixel3.getSize());
-            //console.log("4: " + this.mPixel4.getSize());
+            console.log("4: " + this.mPixel4.getSize());
             this.mPixel.setColor([1,0,0,0.2]);
             this.mPixel.setPosition(60, 50);
             this.mPixel.setSize(100);
@@ -172,9 +173,9 @@ class MyGame extends engine.Scene {
             this.mPixel3.setColor([0,1,0,0.2]);
             this.mPixel3.setPosition(35, 35);
             this.mPixel3.setSize(300);
-            //this.mPixel4.setColor([1,1,1,0.2]);
-            //this.mPixel4.setPosition(15, 15);
-            //this.mPixel4.setSize(400);
+            this.mPixel4.setColor([1,1,1,0.2]);
+            this.mPixel4.setPosition(15, 15);
+            this.mPixel4.setSize(400);
             
             if (this.mCurrentOption > 0) {
                 this.mCurrentOption--;

@@ -14,8 +14,8 @@ let kSizeFactor = 0.2;
 
 class Particle {
     constructor(texture, x, y, life) {
-        this.mRenderComponent = new ParticleRenderable(texture);
-        //this.mRenderComponent = new PixelRenderable(texture);
+        //this.mRenderComponent = new ParticleRenderable(texture);
+        this.mRenderComponent = new PixelRenderable(texture);
         this.setPosition(x, y);
 
         // position control

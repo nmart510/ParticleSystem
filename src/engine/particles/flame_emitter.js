@@ -53,7 +53,8 @@ class FlameEmitter extends ParticleEmitter{
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
         let r = 1.5 + Math.random() * 0.5;
-        p.setSize(r, r);
+        p.setSize(r*10, r*10);
+        console.log(r*10);
         // final color
         p.setFinalColor(colorEnd);
         

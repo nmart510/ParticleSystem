@@ -19,7 +19,7 @@ class PixelRenderable {
         this.mPointSize = 1;
         this.mShowPoint = true;
 
-        this.mPointLoc = vec2.fromValues(0, 0);
+        //this.mPointLoc = vec2.fromValues(0, 0);
 
         if (x !== "undefined") {
             this.setPosition(x, y);
@@ -30,14 +30,11 @@ class PixelRenderable {
     // Public methods
     //**-----------------------------------------
     draw(camera) {
-        let x = this.mPointLoc[0];
-        let y = this.mPointLoc[1];
         let xf = this.mXform;
         xf.setSize(this.mPointSize, this.mPointSize);
-        xf.setPosition(x, y);
-        this.mShader.activate(this.mColor, this.mXform.getTRSMatrix(), camera.getCameraMatrix());
         this.mShader.setPointSize(this.mPointSize);
-
+        this.mShader.activate(this.mColor, this.mXform.getTRSMatrix(), camera.getCameraMatrix());
+        
         // Draw point instead of triangle!
         let gl = glSys.get();
         if (this.mShowPoint) {
@@ -54,10 +51,13 @@ class PixelRenderable {
 
     //Position Getters and Setters
     setPosition(x, y) {
-        this.mPointLoc[0] = x;
-        this.mPointLoc[1] = y;
+        let xf = this.mXform;
+        xf.setPosition(x, y);
     }
-    getPostion() { return this.mPointLoc; }
+    getPostion() {
+        let xf = this.mXform;
+        return xf.getPosition();
+    }
 
     getXform() { return this.mXform; } //Xform can result in unexpected behavior
 
