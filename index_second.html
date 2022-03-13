@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Team Fourtuna Simon Says </title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
+
+        <!-- the following says there are javascript source code contained in 
+             the external source files
+        -->
+        <!-- external library -->
+        <script type="text/javascript" src="./src/lib/gl-matrix.js"></script>
+
+        <!-- our game -->
+        <script type="module" src="./src/my_game/my_game_second.js"></script>
+    </head>
+
+     <body>    
+        <canvas id="GLCanvas" width="800" height="600">
+            <!-- GLCanvas is the area we will draw in -->
+            Your browser does not support the HTML5 canvas.
+            <!-- this message will show only if WebGL clearing failed -->
+        </canvas>
+
+        <div style="padding-left:10px">
+        <b>Particle Controls:</b> <br>
+        <b>Left Click</b>: To add a particle emitter at the current mouse position <br>
+        <b>E</b>: To toggle drawing of particle bounds <br>
+        <b>Q</b>: to toggle particle/rigid-shape collisions <br>
+        <b>Left/Right Key</b>: switch between the different particles emitted <br>
+        </div>
+        <p></p>
+        <div style="display: table" >
+          <div style="float: left; padding-left: 10px">
+              <b>Shape Behavior Controls:</b>
+              <ul>
+                  <li>
+                      <b>V</b>: Motion on/off </li>
+                  <li>
+                      <b>F</b>: Inject random velocity to all objects </li>
+                  <li>
+                      <b>C</b>: Create new Rectangle/Circle (randomly)</li>
+              </ul>
+              <b>Hero Controls:</b>
+              <ul>
+                <li>
+                    <b>WASD-ZX</b>: Move/Rotate(ZX) Hero Object </li>
+                <li>
+                    <b>Up/Down + MNF</b>: Increase/Decrease Mass/Restitution/Friction</li>
+              </ul>
+          </div>
+      </div>
+    </body>
+</html>
