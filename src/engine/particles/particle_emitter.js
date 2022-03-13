@@ -32,7 +32,7 @@ class ParticleEmitter {
         return this.variance;
     }
     setSizeVariance(variance){
-        this.variance = 2*variance;
+        this.variance = variance;
     }
     getColorStart(){
         return this.mColorBegin;
@@ -72,7 +72,7 @@ class ParticleEmitter {
         let p = new Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
-        let r = this.size + (Math.random()-.5) * this.variance;
+        let r = this.size + (Math.random()-.5) * (2*this.variance);
         p.setSize(r, r);
         // final color
         p.setFinalColor(colorEnd);
