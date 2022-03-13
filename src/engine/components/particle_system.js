@@ -75,6 +75,9 @@ function resolveRigidShapeCollision(obj, pSet) {
             collision = resolveRectPos(rigidShape, pSet.getObjectAt(j));
         else if (rigidShape.getType() == "RigidCircle")
             collision = resolveCirclePos(rigidShape, pSet.getObjectAt(j));
+        if (collision) {
+            pSet.getObjectAt(j).hit();
+        }
     }
 
     return collision;
@@ -93,8 +96,11 @@ function resolveRigidShapeSetCollision(objSet, pSet) {
         for (j = 0; j<pSet.size(); j++) {
             if (rigidShape.getType() == "RigidRectangle")
                 collision = resolveRectPos(rigidShape, pSet.getObjectAt(j)) || collision;
-            else if (rigidShape.getType() == "RigidCircle")
-                    collision = resolveCirclePos(rigidShape, pSet.getObjectAt(j)) || collision;
+            else if (rigidShape.getType() == "RigidCircle") 
+                collision = resolveCirclePos(rigidShape, pSet.getObjectAt(j)) || collision;
+            if (collision) {
+                pSet.getObjectAt(j).hit();
+            }
         }
     }
     return collision;

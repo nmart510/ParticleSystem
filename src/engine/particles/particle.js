@@ -66,6 +66,10 @@ class Particle {
     }
     hit(){}
 
+    hit() {
+        console.log("Test");
+    }
+
     setFinalColor = function(f) {    
         vec4.sub(this.mDeltaColor, f, this.getColor());
         if (this.mCyclesToLive !== 0) {
