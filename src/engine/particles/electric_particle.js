@@ -16,5 +16,9 @@ class ElectricParticle extends Particle{
     setSpread(val){
         this.mSpread = val;
     }
+    hit(){
+        //Unrealistic, but showcases hit working
+        this.mSizeDelta = 1.2;
+    }
 }
 export default ElectricParticle;
