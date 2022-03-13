@@ -64,6 +64,7 @@ class Particle {
         let s = size * this.mSizeDelta;
         this.mRenderComponent.setSize(s);
     }
+    hit(){}
 
     setFinalColor = function(f) {    
         vec4.sub(this.mDeltaColor, f, this.getColor());

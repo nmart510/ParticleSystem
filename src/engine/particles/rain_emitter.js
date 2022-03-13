@@ -34,7 +34,7 @@ class RainEmitter extends ParticleEmitter{
         let p = new RainParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
-        let r = .5;
+        let r = this.size + (Math.random()-.5) * this.variance;
         p.setSize(r, r);
         // final color
         p.setFinalColor(colorEnd);

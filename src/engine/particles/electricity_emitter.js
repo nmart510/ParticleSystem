@@ -82,7 +82,7 @@ class ElectricityEmitter extends ParticleEmitter {
         let life = 1 + Math.random() * 20;
         
         // size of the particle
-        let r = 3.5 + Math.random() * 1.5;
+        let r = this.size + (Math.random()-.5) * this.variance;
         
         let p = new ElectricParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);

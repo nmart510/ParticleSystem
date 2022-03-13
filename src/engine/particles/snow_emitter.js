@@ -34,7 +34,7 @@ class SnowEmitter extends ParticleEmitter{
         let p = new SnowParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
-        let r = 1.5 + Math.random() * 0.5;
+        let r = this.size + (Math.random()-.5) * this.variance;
         p.setSize(r, r);
         // final color
         p.setFinalColor(colorEnd);
