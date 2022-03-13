@@ -1,5 +1,5 @@
 import ParticleEmitter from "./particle_emitter.js";
-import RainParticle from "./rain_particle.js";
+import SnowParticle from "./snow_particle.js";
 import engine from "../index.js";
 
 class SnowEmitter extends ParticleEmitter{
@@ -31,19 +31,19 @@ class SnowEmitter extends ParticleEmitter{
         let life = 300;
         let x = (Math.random()-.5) * 200;
         let y = 80 + Math.random();
-        let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
+        let p = new SnowParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
-        let r = 0.5 + Math.random() * 0.5;
+        let r = 1.5 + Math.random() * 0.5;
         p.setSize(r, r);
         // final color
         p.setFinalColor(colorEnd);
         
         // velocity on the particle
         let fx = wind;
-        let fy = -5;
+        let fy = -10;
         p.setVelocity(fx, fy);
-        p.setAcceleration(0, -10);
+        p.setAcceleration(0, 0);
         // size delta
         p.setSizeDelta(1);
         p.setDrag(1)
