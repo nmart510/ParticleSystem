@@ -67,7 +67,7 @@ class Particle {
     hit(){}
 
     hit() {
-        console.log("Test");
+        //console.log("Test");
     }
 
     setFinalColor = function(f) {    
