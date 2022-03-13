@@ -28,7 +28,7 @@ class SnowEmitter extends ParticleEmitter{
     }
         
     createSnow(colorStart, colorEnd, wind) {
-        let life = 300;
+        let life = 500;
         let x = (Math.random()-.5) * 200;
         let y = 80 + Math.random();
         let p = new SnowParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
