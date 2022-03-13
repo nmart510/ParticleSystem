@@ -60,9 +60,9 @@ class Particle {
         vec4.add(c, c, this.mDeltaColor);
     
         // update size
-        let xf = this.mRenderComponent.getXform();
-        let s = xf.getWidth() * this.mSizeDelta;
-        xf.setSize(s, s);
+        let size = this.mRenderComponent.getSize();
+        let s = size * this.mSizeDelta;
+        this.mRenderComponent.setSize(s);
     }
 
     setFinalColor = function(f) {    
@@ -83,8 +83,8 @@ class Particle {
         this.mRenderComponent.getXform().setYPos(yPos); 
     }
 
-    getSize() { return this.mRenderComponent.getXform().getSize(); }
-    setSize(x, y) { this.mRenderComponent.getXform().setSize(x, y); }
+    getSize() { return this.mRenderComponent.getSize(); }
+    setSize(s) { this.mRenderComponent.setSize(s); }
 
     getVelocity() { return this.mVelocity; }
     setVelocity(x, y) { 

@@ -56,7 +56,7 @@ class PixelRenderable {
     }
     getPostion() {
         let xf = this.mXform;
-        return xf.getPosition();
+        return xf.getPosition(); 
     }
 
     getXform() { return this.mXform; } //Xform can result in unexpected behavior

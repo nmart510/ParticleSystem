@@ -158,31 +158,12 @@ class MyGame extends engine.Scene {
                 );
         }
         
-        if (engine.input.isKeyClicked(engine.input.keys.Left)) {
-            console.log("1: " + this.mPixel.getSize());
-            console.log("2: " + this.mPixel2.getSize());
-            console.log("3: " + this.mPixel3.getSize());
-            console.log("4: " + this.mPixel4.getSize());
-            this.mPixel.setColor([1,0,0,0.2]);
-            this.mPixel.setPosition(60, 50);
-            this.mPixel.setSize(100);
-            
-            this.mPixel2.setColor([0,0,1,0.2]);
-            this.mPixel2.setPosition(55, 45);
-            this.mPixel2.setSize(200);
-            this.mPixel3.setColor([0,1,0,0.2]);
-            this.mPixel3.setPosition(35, 35);
-            this.mPixel3.setSize(300);
-            this.mPixel4.setColor([1,1,1,0.2]);
-            this.mPixel4.setPosition(15, 15);
-            this.mPixel4.setSize(400);
-            
+        if (engine.input.isKeyClicked(engine.input.keys.Left)) { 
             if (this.mCurrentOption > 0) {
                 this.mCurrentOption--;
             } 
         }
         if (engine.input.isKeyClicked(engine.input.keys.Right)) {
-            this.mPixel3.setSize(this.mPixel3.getSize() + 100);
             if (this.mCurrentOption < this.mParticleOptions.length - 1) {
                 this.mCurrentOption++;
             }
