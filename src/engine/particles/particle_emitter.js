@@ -32,7 +32,7 @@ class ParticleEmitter {
         return this.variance;
     }
     setSizeVariance(variance){
-        this.variance = variance;
+        this.variance = 2*variance;
     }
     getColorStart(){
         return this.mColorBegin;

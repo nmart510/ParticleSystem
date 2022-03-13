@@ -64,10 +64,9 @@ class Particle {
         let s = size * this.mSizeDelta;
         this.mRenderComponent.setSize(s);
     }
-    hit(){}
 
     hit() {
-        console.log("Test");
+        //console.log("Test");
     }
 
     setFinalColor = function(f) {    
