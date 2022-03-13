@@ -8,6 +8,13 @@ import engine from "../../engine/index.js";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
+/** Class ParticleEmitter
+ *  Creates and emits default particle effects.
+ *  @constructor
+ *  @param {float} px - The x coordinate of the emitter's position
+ *  @param {float} py - the y coordinate of the emitter's position
+ *  @param {int} num - The number of particles to emit
+ */
 class ParticleEmitter {
     constructor(px, py, num) {
         // Emitter position
@@ -22,34 +29,76 @@ class ParticleEmitter {
         this.size = 1;
         this.variance = 0;
     }
+    /**
+     * @function getParticleSize() - Returns the size of the particles
+     * @returns {float} size - The current size of the particles
+     */
     getParticleSize(){
         return this.size;
     }
+    /**
+     * @function setParticleSize() - Sets the size of the particles
+     * @param {float} size - The new size 
+     */
     setParticleSize(size){
         this.size = size;
     }
+    /**
+     * @function getSizeVariance() - gets the current size variance
+     * @returns {float} variance - the amount in which the vary the particle sizes
+     */
     getSizeVariance(){
         return this.variance;
     }
+    /**
+     * @function setSizeVariance() - Sets the size variance
+     * @param {float} variance - The new size variance
+     */
     setSizeVariance(variance){
         this.variance = 2*variance;
     }
+    /**
+     * @function getColorStart() - gets the starting color
+     * @returns {vec4} mColorBegin - The starting color
+     */
     getColorStart(){
         return this.mColorBegin;
     }
+    /**
+     * @function setColorStart() - Sets the starting color
+     * @param {vec4} c - The new starting color
+     */
     setColorStart(c){
         this.mColorBegin = c;
     }
+    /**
+     * @function getColorEnd() - Gets the ending color
+     * @returns {vec4} mColorEnd - The ending color
+     */
     getColorEnd(){
         return this.mColorEnd;
     }
+    /**
+     * @function setColorEnd() - Sets the ending color
+     * @param {vec4} c - the new ending color
+     */
     setColorEnd(c){
         this.mColorEnd = c;
     }
     //end any ongoing particle emitter by setting numRemains to 0
+    /**
+     * @function terminate() - sets numRemains to 0
+     */
     terminate(){this.mNumRemains = 0;}
+    /**
+     * @function expired() - Checks if the number of particles remaining is less than or equal to 0
+     * @returns {bool} true if numRemains is less than or equal to 0, false otherwise
+     */
     expired() { return (this.mNumRemains <= 0); }
-
+    /**
+     * @function emitParticles() - Creates the particles to be emitted and pushes them to the particle set
+     * @param {ParticleSet} pSet - The particle set to be emitted
+     */
     emitParticles(pSet) {
         let numToEmit = 0;
         if (this.mNumRemains < this.kMinToEmit) {
@@ -67,6 +116,14 @@ class ParticleEmitter {
             pSet.addToSet(p);
         }
     }
+    /**
+     * @function createParticle() - Creator function used by the emitter, creates a particle and returns it. Default effect.
+     * @param {float} atX - x coordinate of the particle position
+     * @param {float} atY - y coordinate of the particle position
+     * @param {vec4} colorStart - the particle's initial color
+     * @param {vec4} colorEnd - the particle's final color 
+     * @returns {Particle} p - new particle to be pushed to the particle set
+     */
     createParticle(atX, atY, colorStart, colorEnd) {
         let life = 30 + Math.random() * 200;
         let p = new Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);

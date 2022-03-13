@@ -9,7 +9,11 @@ import * as vertexBuffer from "../core/vertex_buffer.js";
 import SimpleShader from "./simple_shader.js";
 
 class PointShader extends SimpleShader {
-    // constructor of PointShader object
+    /**
+     * @constructor - Represents a PointShader
+     * @param {string} vertexShaderPath - Path to the vertex shader
+     * @param {string} fragmentShaderPath - Path to the fragment shader
+     */
     constructor(vertexShaderPath, fragmentShaderPath) {
         super(vertexShaderPath, fragmentShaderPath);
         let gl = glSys.get();
@@ -22,6 +26,12 @@ class PointShader extends SimpleShader {
         this.mPointSize = 1;
     }
 
+    /**
+     * @function activate() - Activates the shader for rendering
+     * @param {vec4} pixelColor - The color that is referenced in the fragment shader
+     * @param {mat4} trsMatrix - The transform matrix
+     * @param {mat4} cameraMatrix - The camera matrix
+     */
     // Activate the shader for rendering
     activate(pixelColor, trsMatrix, cameraMatrix) {
         // first call the super class' activate
@@ -41,7 +51,10 @@ class PointShader extends SimpleShader {
             0);
         gl.enableVertexAttribArray(this.mVertexPositionRef);
     }
-
+    /**
+     * @function setPointSize() - sets the pixel size to allow resizing
+     * @param {float} w - the new pixel size
+     */
     setPointSize(w) { 
         this.mPointSize = w;
     }

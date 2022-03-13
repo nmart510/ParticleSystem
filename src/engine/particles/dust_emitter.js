@@ -3,14 +3,27 @@ import DustParticle from "./dust_particle.js";
 import engine from "../../engine/index.js";
 
 class DustEmitter extends ParticleEmitter{
+    /**
+     * @constructor - represents a DustEmitter
+     * @param {int} num - The number of particles to emit
+     * @param {float} lifespan - The life of the emitter
+     */
     constructor(num, lifespan) {
         super(0, 0, num);
         this.mLifespan = Date.now() + lifespan;
         this.mWind = 0;
     }
+    /**
+     * @function getWind() - Gets the current horizontal acceleration
+     * @returns {float} mWind - The current horizontal acceleration
+     */
     getWind(){
         return this.mWind;
     }
+    /**
+     * @function setWind() - 
+     * @param {float} val - The new horizontal acceleration
+     */
     setWind(val){
         this.mWind = val;
     }
