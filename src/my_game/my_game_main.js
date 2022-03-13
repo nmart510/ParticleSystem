@@ -5,8 +5,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../engine/index.js";
-import FlameParticle from "../engine/particles/flame_particle.js";
-import PixelRenderable from "../engine/renderables/pixel_renderable.js";
 import Hero from "./objects/hero.js";
 import Minion from "./objects/minion.js";
 
@@ -35,9 +33,6 @@ class MyGame extends engine.Scene {
         this.mParticles = null;
         this.mPSDrawBounds = false;
         this.mPSCollision = true;
-
-        // Particle Shader Test:
-        this.mPixel = null;
     }
 
 
@@ -51,11 +46,6 @@ class MyGame extends engine.Scene {
     }
 
     init() {
-        this.mPixel = new PixelRenderable();
-        this.mPixel2 = new PixelRenderable();
-        this.mPixel3 = new PixelRenderable();
-        this.mPixel4 = new FlameParticle();
-
         // Step A: set up the cameras
         this.mCamera = new engine.Camera(
             vec2.fromValues(50, 40), // position of the camera
@@ -112,11 +102,6 @@ class MyGame extends engine.Scene {
         }
 
         this.mMsg.draw(this.mCamera);
-
-        this.mPixel.draw(this.mCamera);
-        this.mPixel2.draw(this.mCamera);
-        this.mPixel3.draw(this.mCamera);
-        this.mPixel4.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
