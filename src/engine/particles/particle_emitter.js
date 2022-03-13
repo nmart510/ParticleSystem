@@ -28,6 +28,7 @@ class ParticleEmitter {
         this.mColorEnd = [1,1,1,1];
         this.size = 1;
         this.variance = 0;
+        this.mDelta = 0;
     }
     /**
      * @function getParticleSize() - Returns the size of the particles
@@ -57,10 +58,17 @@ class ParticleEmitter {
     setSizeVariance(variance){
         this.variance = 2*variance;
     }
+<<<<<<< HEAD
     /**
      * @function getColorStart() - gets the starting color
      * @returns {vec4} mColorBegin - The starting color
      */
+=======
+    setGrowth(delta) {
+        this.mDelta = delta;
+    }
+    getGrowth() { return this.mDelta; }
+>>>>>>> 265f5e0c3b12c6b34ace7fc31a51ff1d5aa18b7b
     getColorStart(){
         return this.mColorBegin;
     }
@@ -140,7 +148,7 @@ class ParticleEmitter {
         p.setVelocity(fx, fy);
         
         // size delta
-        p.setSizeDelta(0.98);
+        p.setSizeDelta(1 + this.mDelta);
         
         return p;
     }

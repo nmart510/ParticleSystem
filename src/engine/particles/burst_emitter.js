@@ -158,10 +158,10 @@ class BurstEmitter extends ParticleEmitter {
         let fy = Math.sin(theta) * radius;
         // velocity on the particle
         p.setVelocity(fx, fy);
-        p.setDrag(1);
-        p.setAcceleration(0, 0);
+        p.setDrag(this.mDrag);
+        p.setAcceleration(this.mAcceleration[0], this.mAcceleration[1]);
         // size delta
-        p.setSizeDelta(0.95);
+        p.setSizeDelta(1 + this.getGrowth());
         
         return p;
     }
