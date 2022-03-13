@@ -8,5 +8,8 @@ class RainParticle extends Particle{
     update(){
         super.update();
     }
+    hit(){
+        this.terminate();
+    }
 }
 export default RainParticle;
