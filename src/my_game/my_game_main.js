@@ -123,8 +123,8 @@ class MyGame extends engine.Scene {
         }
         if (engine.input.isKeyClicked(engine.input.keys.R)) {
             let newRain = this.mParticles.addRain(20,12000);
-            newRain.setColorStart(0,0,1,1);
-            newRain.setColorEnd(.7,.7,.7,.6);
+            newRain.setColorStart(engine.Color.BLUE);
+            newRain.setColorEnd([.7,.7,.7,.6]);
             newRain.setWind(20);
             newRain.setParticleSize(3);
             newRain.setSizeVariance(0);
