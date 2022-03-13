@@ -6,12 +6,14 @@
 "use strict";
 
 import * as glSys from "../core/gl.js";
+import Renderable from "./renderable.js";
 import Transform from "../utils/transform.js";
 import * as shaderResources from "../core/shader_resources.js";
 
-class PixelRenderable {
+class PixelRenderable extends Renderable {
     // p1, p2: either both there, or none
     constructor(x, y) {
+        super();
         this.mShader = shaderResources.getPointShader();  // get the constant color shader
         this.mXform = new Transform(); // transform that moves this object around
         this.mColor = [1, 0, 0, 1];    // color of pixel
@@ -58,12 +60,6 @@ class PixelRenderable {
         let xf = this.mXform;
         return xf.getPosition(); 
     }
-
-    getXform() { return this.mXform; } //Xform can result in unexpected behavior
-
-    //Color Getters and Setters
-    setColor(color) { this.mColor = color; }
-    getColor() { return this.mColor; }
 }
 
 export default PixelRenderable;
