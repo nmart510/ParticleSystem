@@ -41,6 +41,9 @@ class Particle {
     draw(aCamera) {
         this.mRenderComponent.draw(aCamera);
     }
+    terminate(){
+        this.mCyclesToLive = 0;
+    }
 
     update() {
         this.mCyclesToLive--;

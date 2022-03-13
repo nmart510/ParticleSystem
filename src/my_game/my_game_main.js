@@ -126,6 +126,8 @@ class MyGame extends engine.Scene {
             newRain.setColorStart(0,0,1,1);
             newRain.setColorEnd(.7,.7,.7,.6);
             newRain.setWind(20);
+            newRain.setParticleSize(3);
+            newRain.setSizeVariance(0);
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.C)) {
@@ -167,6 +169,8 @@ class MyGame extends engine.Scene {
                         let newDefault = this.mParticles.addEmitterAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
                         newDefault.setColorStart(0,0,1,1);
                         newDefault.setColorEnd(0,.7,.3,.6);
+                        newDefault.setParticleSize(10);
+                        newDefault.setSizeVariance(5);
                         break;
                     case 1: //Flame
                         let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,4000);
@@ -175,28 +179,38 @@ class MyGame extends engine.Scene {
                         newFlame.setClimb(20);
                         newFlame.setSpread(.4);
                         newFlame.setWind(10);
+                        newFlame.setParticleSize(5);
+                        newFlame.setSizeVariance(1.5);
                         break;
                     case 2: //Dust
                         let newDust = this.mParticles.addDust(1,12000);
                         newDust.setColorStart(1,1,.6,1);
                         newDust.setColorEnd(0,0,0,0);
                         newDust.setWind(-20);
+                        newDust.setParticleSize(10);
+                        newDust.setSizeVariance(5);
                         break;
                     case 3: //Burst
                         let newBurst = this.mParticles.addBurstAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),100);
                         newBurst.setColorStart(0,1,0,1);
                         newBurst.setColorEnd(1,0,.3,.6);
+                        newBurst.setParticleSize(10);
+                        newBurst.setSizeVariance(0.5);
                         break;
                     case 4: //Electric
                         let newElectric = this.mParticles.addElectricityAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),10);
                         newElectric.setColorStart(0,1,1,1);
                         newElectric.setColorEnd(1,1,1,.6);
+                        newElectric.setParticleSize(10);
+                        newElectric.setSizeVariance(5);
                         break;
                     case 5: //snow
                         let newSnow = this.mParticles.addSnow(10,12000);
                         newSnow.setColorStart(1, 1, 1, 1);
                         newSnow.setColorEnd(.7,.7,.7,.6);
                         newSnow.setWind(5);
+                        newSnow.setParticleSize(3);
+                        newSnow.setSizeVariance(2.5);
                         break;
                 }
                 
