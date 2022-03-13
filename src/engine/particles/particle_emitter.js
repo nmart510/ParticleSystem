@@ -21,6 +21,7 @@ class ParticleEmitter {
         this.mColorEnd = [1,1,1,1];
         this.size = 1;
         this.variance = 0;
+        this.mDelta = 0;
     }
     getParticleSize(){
         return this.size;
@@ -34,6 +35,10 @@ class ParticleEmitter {
     setSizeVariance(variance){
         this.variance = 2*variance;
     }
+    setGrowth(delta) {
+        this.mDelta = delta;
+    }
+    getGrowth() { return this.mDelta; }
     getColorStart(){
         return this.mColorBegin;
     }
@@ -83,7 +88,7 @@ class ParticleEmitter {
         p.setVelocity(fx, fy);
         
         // size delta
-        p.setSizeDelta(0.98);
+        p.setSizeDelta(1 + this.mDelta);
         
         return p;
     }

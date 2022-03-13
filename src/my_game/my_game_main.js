@@ -171,6 +171,7 @@ class MyGame extends engine.Scene {
                         newDefault.setColorEnd([0,.7,.3,.6]);
                         newDefault.setParticleSize(10);
                         newDefault.setSizeVariance(5);
+                        newDefault.setGrowth(-0.02);
                         break;
                     case 1: //Flame
                         let newFlame = this.mParticles.addFlameAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),1,4000);
@@ -181,6 +182,7 @@ class MyGame extends engine.Scene {
                         newFlame.setWind(10);
                         newFlame.setParticleSize(5);
                         newFlame.setSizeVariance(1.5);
+                        newFlame.setGrowth(-0.05);
                         break;
                     case 2: //Dust
                         let newDust = this.mParticles.addDust(1,12000);
@@ -196,6 +198,7 @@ class MyGame extends engine.Scene {
                         newBurst.setColorEnd([1,0,.3,.6]);
                         newBurst.setParticleSize(10);
                         newBurst.setSizeVariance(0.5);
+                        newBurst.setGrowth(-0.05);
                         break;
                     case 4: //Electric
                         let newElectric = this.mParticles.addElectricityAt(this.mCamera.mouseWCX(), this.mCamera.mouseWCY(),10);
@@ -203,6 +206,7 @@ class MyGame extends engine.Scene {
                         newElectric.setColorEnd([1,1,1,.6]);
                         newElectric.setParticleSize(10);
                         newElectric.setSizeVariance(5);
+                        newElectric.setGrowth(-0.1);
                         break;
                     case 5: //snow
                         let newSnow = this.mParticles.addSnow(10,12000);
