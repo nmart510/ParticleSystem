@@ -116,7 +116,6 @@ class MyGame extends engine.Scene {
                 for (let i = 0; i < 4; i++){
                     this.mPattern[this.mPattern.length] = parseInt(Math.random()*4);
                 }
-                console.log(this.mPattern);
             }
             if (this.mDisplayCounter < this.mPattern.length && Date.now() >= this.mDisplayTimer){
                 let x = this.mTorches.getObjectAt(this.mPattern[this.mDisplayCounter]).getXform().getXPos();
