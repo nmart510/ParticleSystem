@@ -59,7 +59,7 @@ class MyGame extends engine.Scene {
             100,                     // width of camera
             [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
         );
-        this.mCamera.setBackgroundColor([0.6, 0.6, 0.6, 1]);
+        this.mCamera.setBackgroundColor([0.4, 0.4, 0.4, 1]);
         // sets the background to gray
         let t = new Torch(this.kTorch,75,40,Color.BLUE);
         let t1 = new Torch(this.kTorch,50,20,Color.RED);
@@ -266,22 +266,41 @@ class MyGame extends engine.Scene {
                     b.setPulses(4);
                     b.setDrag(.96);
                     b.setSpacing(6);
-                    b.setParticleSize(4);
-                    b.setGrowth(-.02);
+                    b.setParticleSize(6);
+                    b.setGrowth(-.04);
+                    b.setAcceleration([0,-6]);
                     if (this.mFireworks[this.mFireworkCounter][2] == 1){
+                        b.setRadius(30);
                         b.setNumParticles(20);
-                        b.setColorStart(Color.RED);
-                        b.setColorEnd(Color.RED);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.RED);
+                            b.setColorEnd(Color.RED);
+                        } else {
+                            b.setColorStart(Color.MAGENTA);
+                            b.setColorEnd(Color.MAGENTA);
+                        }
                     }
                     if (this.mFireworks[this.mFireworkCounter][2] == 2){
+                        b.setRadius(45);
                         b.setNumParticles(24);
-                        b.setColorStart(Color.GREEN);
-                        b.setColorEnd(Color.GREEN);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.GREEN);
+                            b.setColorEnd(Color.GREEN);
+                        } else {
+                            b.setColorStart(Color.YELLOW);
+                            b.setColorEnd(Color.YELLOW);
+                        }
                     }
                     if (this.mFireworks[this.mFireworkCounter][2] == 3){
+                        b.setRadius(40);
                         b.setNumParticles(28);
-                        b.setColorStart(Color.BLUE);
-                        b.setColorEnd(Color.BLUE);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.BLUE);
+                            b.setColorEnd(Color.BLUE);
+                        } else {
+                            b.setColorStart(Color.CYAN);
+                            b.setColorEnd(Color.CYAN);
+                        }
                     }
                 this.mFireworkTimer = Date.now() + 200;
                 this.mDisplayTimer = Date.now() + 1800;
