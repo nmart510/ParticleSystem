@@ -53,3 +53,12 @@ Demo games using this API can be found here:
 [Demo 1 - Basic Functionality](https://nmart510.github.io/ParticleSystem/)
 
 [Demo 2 - Simon Says](https://nmart510.github.io/ParticleSystem/index_second.html)
+
+##Conclusion
+The goal we have set out to accomplish is to create a library of presets which users can choose from allowing for ease of access when creating particles in our game engine. Given the scope of this project we’ve accomplished the main goal of improving the current particle system. 
+
+Our final release expands upon the presets shown in our demo and implements a pixel renderable to help with performance issues. Our goal of allowing for multiple textured particles simply cannot be accomplished with this current implementation. 
+
+One of the visions we have for the future of this particle system is reworking the particle sets to allow particles to group together to form complex objects. Minecraft does an excellent job of displaying complex shapes such as this with limited graphical quality. 
+
+One final idea that we have decided to shelf for the time is custom creator functions. Without a deep understanding of the particle system it can be hard to modify the features of a particle on their most basic level. While we would like to support custom particle presets which can be defined by more advanced users it doesn’t fit the scope of this project. 
