@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: FlameParticle</title>
+    <title>JSDoc: Source: particles/dust_emitter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,251 +17,96 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: FlameParticle</h1>
+    <h1 class="page-title">Source: particles/dust_emitter.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h2>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import ParticleEmitter from "./particle_emitter.js";
+import DustParticle from "./dust_particle.js";
+import engine from "../../engine/index.js";
+
+class DustEmitter extends ParticleEmitter{
+    /**
+     * @constructor DustEmitter
+     * @param {int} num - The number of particles to emit
+     * @param {float} lifespan - The life of the emitter
+     */
+    constructor(num, lifespan) {
+        super(0, 0, num);
+        this.mLifespan = Date.now() + lifespan;
+        this.mWind = 0;
+    }
+    /**
+     * @function getWind() - Gets the current horizontal acceleration
+     * @returns {float} mWind - The current horizontal acceleration
+     */
+    getWind(){
+        return this.mWind;
+    }
+    /**
+     * @function setWind() - Sets the horizontal acceleration
+     * @param {float} val - The new horizontal acceleration
+     */
+    setWind(val){
+        this.mWind = val;
+    }
+    /**
+     * @function emitParticles() - Creates and emits particles based on the creator function
+     * @param {ParticleSet} pSet - The set of particles
+     */
+    emitParticles(pSet){
+        if (Date.now()%3 == 0){
+            let numToEmit = this.mNumRemains;
+            let i, p;
+            for (i = 0; i &lt; numToEmit; i++) {
+                p = this.createDust(this.mColorBegin, this.mColorEnd, this.mWind);
+                pSet.addToSet(p);
+            }
+            if (Date.now() > this.mLifespan){
+                this.mNumRemains = 0;
+            }
+        }
         
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
+    }
+    /**
+     * @function createDust() - Creates dust particles
+     * @param {vec4} colorStart - The starting color
+     * @param {vec4} colorEnd - The ending color 
+     * @param {float} wind - The horizontal acceleration of the dust particles
+     * @returns {DustParticle} p - The new dust particle to be added to the set
+     */    
+    createDust(colorStart, colorEnd, wind) {
+        let life = 120 + Math.random() * 480;
+        let x = (Math.random()-.5) * 200;
+        let y = (Math.random()-.5) * 160;
+        let p = new DustParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
+        p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+        // size of the particle
+        let r = this.size + (Math.random()-.5) * this.variance;
+        p.setSize(r, r);
+        // final color
+        p.setFinalColor(colorEnd);
         
-
-    
-
-    
-    <h4 class="name" id="FlameParticle"><span class="type-signature"></span>new FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
+        // velocity on the particle
+        let fx = wind;
+        let fy = -1;
+        p.setVelocity(fx, fy);
+        p.setAcceleration(0,0);
+        // size delta
+        p.setSizeDelta(1);
+        p.setDrag(1)
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>texture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The texture to be used, contains a path to a file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">x coordinate of the particle's position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">y coordinate of the particles position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>life</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lifespan of the individual particle</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="particles_flame_particle.js.html">particles/flame_particle.js</a>, <a href="particles_flame_particle.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+        return p;
+    }
+}
+export default DustEmitter;</code></pre>
+        </article>
+    </section>
 
 
 

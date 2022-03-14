@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: FlameParticle</title>
+    <title>JSDoc: Source: particles/particle_set.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,251 +17,171 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: FlameParticle</h1>
+    <h1 class="page-title">Source: particles/particle_set.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="FlameParticle"><span class="type-signature"></span>new FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>texture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The texture to be used, contains a path to a file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">x coordinate of the particle's position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">y coordinate of the particles position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>life</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lifespan of the individual particle</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="particles_flame_particle.js.html">particles/flame_particle.js</a>, <a href="particles_flame_particle.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: particle_set.js
+ * a set of Particles
+ * 
+ * Subclass of GameObjectSet: 
+ *     GameObjectSet: a set of objects that support: update() and draw() functions
+ *                     Particle satisfies!
+ */
+"use strict";
+
+import * as glSys from "../core/gl.js";
+import GameObjectSet from "../game_objects/game_object_set.js";
+import FlameEmitter from "./flame_emitter.js";
+import ParticleEmitter from "./particle_emitter.js";
+import RainEmitter from "./rain_emitter.js";
+import SnowEmitter from "./snow_emitter.js";
+import DustEmitter from "./dust_emitter.js";
+import BurstEmitter from "./burst_emitter.js";
+import ElectricityEmitter from "./electricity_emitter.js";
+
+/**
+ * @constructor ParticleSet
+ */
+class ParticleSet extends GameObjectSet {
+    constructor() {
+        super();
+        this.mEmitterSet = [];
+    }
+    /**
+     * @function draw() - Draws to the given camera.
+     * @param {Camera} aCamera - The camera to draw to
+     */
+    draw(aCamera) {
+        let gl = glSys.get();
+        gl.blendFunc(gl.ONE, gl.ONE);  // for additive blending!
+        super.draw(aCamera);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // restore alpha blending
+    }
+    /**
+     * @function addEmitterAt() - Adds a default emitter to the given position
+     * @param {float} x - The x coordinate of the emitter position
+     * @param {float} y - The y coordinate of the emitter position
+     * @param {int} n - The number of particles to create in the emitter
+     * @returns {ParticleEmitter} e - The newly added default emitter
+     */
+    addEmitterAt(x, y, n) {
+        let e = new ParticleEmitter(x, y, n);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addFlameAt() - Adds a new flame emitter to the given position
+     * @param {float} x - The x coordinate of the emitter position
+     * @param {float} y - The y coordinate of the emitter position
+     * @param {int} n - The number of particles to create in the emitter
+     * @param {float} life - The lifespan of the emitter
+     * @returns {FlameEmitter} e - The newly added flame emitter
+     */
+    addFlameAt(x,y,n,life) {
+        let e = new FlameEmitter(x, y, n, life);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addRain() - Creates a new rain emitter
+     * @param {int} n - The number of particles to emit
+     * @param {float} life - The lifespan of the emitter
+     * @returns {RainEmitter} e - The newly added rain emitter
+     */
+    addRain(n,life) {
+        let e = new RainEmitter(n, life);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addSnow() - Creates a new snow emitter
+     * @param {int} n - The number of particles to emit
+     * @param {float} life - The lifespan of the emitter
+     * @returns {SnowEmitter} e - The newly added snow emitter
+     */
+    addSnow(n,life) {
+        let e = new SnowEmitter(n, life);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addDust() - Creates a new dust emitter
+     * @param {int} n - The number of particles to emit
+     * @param {float} life - The lifespan of the emitter
+     * @returns {DustEmitter} e - The newly added dust emitter
+     */
+    addDust(n,life) {
+        let e = new DustEmitter(n, life);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addBurstAt() - Adds a new burst emitter at the given position
+     * @param {float} x - The x coordinate of the emitter position
+     * @param {float} y - The y coordinate of the emitter position
+     * @param {int} n - The number of particles to create in the emitter
+     * @returns {BurstEmitter} e - The newly created burst emitter
+     */
+    addBurstAt(x,y,n) {
+        let e = new BurstEmitter(x, y, n);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+    /**
+     * @function addElectricityAt() - Adds a new electric emitter at the given position
+     * @param {float} x - The x coordinate of the emitter position
+     * @param {float} y - The y coordinate of the emitter position
+     * @param {int} n - The number of particles to create in the emitter
+     * @returns {ElectricityEmitter} e - The newly created electric emitter
+     */
+    addElectricityAt(x,y,n) {
+        let e = new ElectricityEmitter(x, y, n);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+
+    drawMarkers(aCamera) {
+        let i;
+        for (i = 0; i &lt; this.mSet.length; i++) {
+            this.mSet[i].drawMarker(aCamera);
+        }
+    }
+
+    /**
+     * @function update() - Cleans up and emits particles in the set
+     */
+    update() {
+        super.update();
+        // Cleanup Particles
+        let i, obj;
+        for (i = 0; i &lt; this.size(); i++) {
+            obj = this.getObjectAt(i);
+            if (obj.hasExpired()) {
+                this.removeFromSet(obj);
+            }
+        }
+
+        // Emit new particles
+        for (i = 0; i &lt; this.mEmitterSet.length; i++) {
+            let e = this.mEmitterSet[i];
+            e.emitParticles(this);
+            if (e.expired()) {  // delete the emitter when done
+                this.mEmitterSet.splice(i, 1);
+            }
+        }
+    }
+}
+
+export default ParticleSet;</code></pre>
+        </article>
+    </section>
 
 
 
@@ -275,7 +195,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Mar 14 2022 00:11:53 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Mar 14 2022 00:11:52 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: FlameParticle</title>
+    <title>JSDoc: Source: shaders/point_shader.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,251 +17,80 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: FlameParticle</h1>
+    <h1 class="page-title">Source: shaders/point_shader.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="FlameParticle"><span class="type-signature"></span>new FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>texture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The texture to be used, contains a path to a file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">x coordinate of the particle's position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">y coordinate of the particles position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>life</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lifespan of the individual particle</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="particles_flame_particle.js.html">particles/flame_particle.js</a>, <a href="particles_flame_particle.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+ * File: point_shader.js
+ *          for particle engine
+ */
+"use strict";
+
+import * as glSys from "../core/gl.js";
+import * as vertexBuffer from "../core/vertex_buffer.js";
+import SimpleShader from "./simple_shader.js";
+
+class PointShader extends SimpleShader {
+    /**
+     * @constructor PointShader
+     * @param {string} vertexShaderPath - Path to the vertex shader
+     * @param {string} fragmentShaderPath - Path to the fragment shader
+     */
+    constructor(vertexShaderPath, fragmentShaderPath) {
+        super(vertexShaderPath, fragmentShaderPath);
+        let gl = glSys.get();
+
+        this.mPointSizeRef = null;            // reference to the PointSize uniform
+
+        // point size uniform
+        this.mPointSizeRef = gl.getUniformLocation(this.mCompiledShader, "uPointSize");
+
+        this.mPointSize = 1;
+    }
+
+    /**
+     * @function activate() - Activates the shader for rendering
+     * @param {vec4} pixelColor - The color that is referenced in the fragment shader
+     * @param {mat4} trsMatrix - The transform matrix
+     * @param {mat4} cameraMatrix - The camera matrix
+     */
+    // Activate the shader for rendering
+    activate(pixelColor, trsMatrix, cameraMatrix) {
+        // first call the super class' activate
+        super.activate(pixelColor, trsMatrix, cameraMatrix);
+
+        // now our own functionality: load the pixel size
+        let gl = glSys.get();
+        gl.uniform1f(this.mPointSizeRef, this.mPointSize);
+
+        // re-bind the vertex position attribute to the pixel's buffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer.getPointVertexBuffer());
+        gl.vertexAttribPointer(this.mVertexPositionRef,  // this is defined in SimpleShader
+            3,              // each element is a 3-float (x,y.z)
+            gl.FLOAT,       // data type is FLOAT
+            false,          // if the content is normalized vectors
+            0,              // number of bytes to skip in between elements
+            0);
+        gl.enableVertexAttribArray(this.mVertexPositionRef);
+    }
+    /**
+     * @function setPointSize() - sets the pixel size to allow resizing
+     * @param {float} w - the new pixel size
+     */
+    setPointSize(w) { 
+        this.mPointSize = w;
+    }
+}
+
+export default PointShader;</code></pre>
+        </article>
+    </section>
 
 
 
@@ -275,7 +104,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Mar 14 2022 00:11:53 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Mar 14 2022 00:11:52 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

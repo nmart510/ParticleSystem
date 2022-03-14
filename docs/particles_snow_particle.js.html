@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: FlameParticle</title>
+    <title>JSDoc: Source: particles/snow_particle.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,251 +17,59 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: FlameParticle</h1>
+    <h1 class="page-title">Source: particles/snow_particle.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="FlameParticle"><span class="type-signature"></span>new FlameParticle<span class="signature">(texture, x, y, life)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>texture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The texture to be used, contains a path to a file</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">x coordinate of the particle's position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">y coordinate of the particles position</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>life</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">float</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lifespan of the individual particle</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="particles_flame_particle.js.html">particles/flame_particle.js</a>, <a href="particles_flame_particle.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Particle from "./particle.js";
+
+class SnowParticle extends Particle{
+    /**
+     * @constructor SnowParticle
+     * @param {string} texture - A path to the texture that the particle will have
+     * @param {float} x - The x coordinate of the position
+     * @param {float} y - The y coordinate of the position
+     * @param {float} life - The lifespan of the particle
+     */
+    constructor(texture, x, y, life){
+        super(texture, x, y, life);
+        this.mSpread = .3;
+        this.mTargetTime = life * .8;
+        this.mTargetColor = [1,1,.6,1];
+    }
+    /**
+     * @function update() - Uses the position and color control variables to update the particle based on the update interval
+     */
+    update(){
+        super.update();
+        let p = this.getPosition();
+        if (this.mCyclesToLive%8 == 0){
+            p[0] += (Math.random()-.5)*this.mSpread;
+        }
+        if (this.mCyclesToLive%17 == 0){
+            p[1] += (Math.random()-.5)*this.mSpread;
+        }
+        this.setPosition(p[0], p[1]);
+    }
+    /**
+     * @function setFinalColor() - Sets the final color of the particle
+     * @param {vec2} f - the vector to subtract from the current color
+     */
+    setFinalColor = function(f) {    
+        vec4.sub(this.mDeltaColor, f, this.getColor());
+        if (this.mCyclesToLive !== 0) {
+            vec4.scale(this.mDeltaColor, this.mDeltaColor, 1/this.mCyclesToLive);
+        }
+    }
+}
+export default SnowParticle;</code></pre>
+        </article>
+    </section>
 
 
 
