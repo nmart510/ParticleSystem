@@ -21,7 +21,9 @@ class MyGame extends engine.Scene {
         this.mCollisionInfos = [];
         this.mScore = 0;
         this.mOnce = true;
-        this.stageTorches = [];
+        this.mStageTorches = [];
+        this.mDust = null;
+        this.mWind = 0;
 
         this.mDisplayCounter = 0;
         this.mDisplayTimer = null;
@@ -76,6 +78,12 @@ class MyGame extends engine.Scene {
         this.mStartMsg.setColor([0, 0, 0, 1]);
         this.mStartMsg.getXform().setPosition(33, 40);
         this.mStartMsg.setTextHeight(3);
+        let d = this.mParticles.addDust(1,80000000);
+        d.setParticleSize(3);
+        d.setSizeVariance(2.5);
+        d.setColorStart([1,1,.5,1]);
+        d.setColorEnd([.5,.5,0,.5]);
+        this.mDust = d;
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -117,7 +125,8 @@ class MyGame extends engine.Scene {
                     f.setColorEnd(Color.RED);
                     f.setClimb(30);
                     f.setSpread(.6);
-                    this.stageTorches.push(f);
+                    f.setWind(this.mWind * 2);
+                    this.mStageTorches.push(f);
                 }
                 this.mOnce = false;
             }
@@ -128,8 +137,8 @@ class MyGame extends engine.Scene {
                 this.mScore = 0;
                 this.mDisplayTimer = Date.now() + 1000;
                 this.mOnce = true;
-                for (let i = 0; i < this.stageTorches.length; i++){
-                    this.stageTorches[i].terminate();
+                for (let i = 0; i < this.mStageTorches.length; i++){
+                    this.mStageTorches[i].terminate();
                 }
             }
         }
@@ -137,6 +146,9 @@ class MyGame extends engine.Scene {
             if (this.mPattern.length == 0){
                 for (let i = 0; i < 4; i++){
                     this.mPattern[this.mPattern.length] = parseInt(Math.random()*4);
+                    if (this.mPattern[this.mPattern.length-1] <= 1)
+                        this.mWind++;
+                    else this.mWind--;
                 }
             }
             if (this.mDisplayCounter < this.mPattern.length && Date.now() >= this.mDisplayTimer){
@@ -149,6 +161,7 @@ class MyGame extends engine.Scene {
                 f.setColorEnd(Color.RED);
                 f.setClimb(30);
                 f.setSpread(.6);
+                f.setWind(this.mWind * 2);
                 this.mDisplayTimer = Date.now() + 1500;
                 this.mDisplayCounter++;
             } else if (this.mDisplayCounter >= this.mPattern.length && Date.now() >= this.mDisplayTimer){
@@ -187,6 +200,7 @@ class MyGame extends engine.Scene {
                     f.setColorEnd(Color.BLUE);
                     f.setClimb(30);
                     f.setSpread(.6);
+                    f.setWind(this.mWind * 2);
                 }
                 let x = this.mTorches.getObjectAt(input).getXform().getXPos();
                 let y = this.mTorches.getObjectAt(input).getXform().getYPos();
@@ -197,18 +211,22 @@ class MyGame extends engine.Scene {
                 f.setColorEnd(Color.BLACK);
                 f.setClimb(30);
                 f.setSpread(.6);
+                f.setWind(this.mWind * 2);
                 this.mInputCounter++;
             }
             if (this.mContinue == false){
                 this.mInputPhase = false;
                 this.mEndPhase = true;
                 this.mInputCounter = 0;
-                this.mStartMsg.setText("    Game Over");
+                this.mStartMsg.setText("     Game Over");
                 this.mContinue = true;
             }
             if (this.mInputCounter >= this.mPattern.length){
                 for (let i = 0; i < 2; i++){
                     this.mPattern[this.mPattern.length] = parseInt(Math.random()*4);
+                    if (this.mPattern[this.mPattern.length-1] <= 1)
+                        this.mWind++;
+                    else this.mWind--;
                 }
                 this.mInputPhase = false;
                 this.mDisplayPhase = true;
@@ -231,6 +249,7 @@ class MyGame extends engine.Scene {
             }
         }
         this.mMsg.setText("Score: " + this.mScore);
+        this.mDust.setWind(this.mWind);
         // Particle System
         this.mParticles.update();
     }
