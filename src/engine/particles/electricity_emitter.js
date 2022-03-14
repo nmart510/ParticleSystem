@@ -7,9 +7,8 @@ import ElectricParticle from "./electric_particle.js";
 import engine from "../../engine/index.js";
 "use strict";
 
-/** Class ElectricityEmitter
- *  Creates and emits electricity effects.
- *  @constructor
+/** 
+ *  @constructor ElectricityEmitter
  *  @param {float} px - The x coordinate of the emitter's position
  *  @param {float} py - the y coordinate of the emitter's position
  *  @param {int} num - The number of particles to emit

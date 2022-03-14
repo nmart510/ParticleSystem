@@ -4,7 +4,7 @@ import engine from "../index.js";
 
 class SnowEmitter extends ParticleEmitter{
     /**
-     * @constructor - represents a SnowEmitter
+     * @constructor SnowEmitter
      * @param {int} num - The number of particles to emit
      * @param {float} lifespan - The life of the emitter
      */

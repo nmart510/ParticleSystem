@@ -3,6 +3,14 @@ import FlameParticle from "./flame_particle.js";
 import engine from "../../engine/index.js";
 
 class FlameEmitter extends ParticleEmitter{
+    /** Class FlameEmitter
+     *  Creates and emits flame effects.
+     *  @constructor
+     *  @param {float} px - The x coordinate of the emitter's position
+     *  @param {float} py - the y coordinate of the emitter's position
+     *  @param {int} num - The number of particles to emit
+     *  @param {float} lifespan - The lifespan of the emitter
+     */
     constructor(px, py, num, lifespan) {
         super(px, py, num);
         this.mLifespan = Date.now() + lifespan;

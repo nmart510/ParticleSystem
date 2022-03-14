@@ -9,9 +9,8 @@ import engine from "../../engine/index.js";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
-/** Class BurstEmitter
- *  Creates and emits burst-like effects.
- *  @constructor
+/**  
+ *  @constructor BurstEmitter
  *  @param {float} px - The x coordinate of the emitter's position
  *  @param {float} py - the y coordinate of the emitter's position
  *  @param {int} num - The number of particles to emit

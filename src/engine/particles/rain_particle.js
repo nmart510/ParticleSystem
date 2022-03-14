@@ -2,7 +2,7 @@ import Particle from "./particle.js";
 
 class RainParticle extends Particle{
     /**
-     * @constructor - Represents a RainParticle
+     * @constructor RainParticle
      * @param {string} texture - A path to the texture that the particle will have
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position

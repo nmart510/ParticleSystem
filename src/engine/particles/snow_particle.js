@@ -2,7 +2,7 @@ import Particle from "./particle.js";
 
 class SnowParticle extends Particle{
     /**
-     * @constructor - Represents a SnowParticle
+     * @constructor SnowParticle
      * @param {string} texture - A path to the texture that the particle will have
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position

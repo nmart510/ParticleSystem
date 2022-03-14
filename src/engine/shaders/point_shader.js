@@ -10,7 +10,7 @@ import SimpleShader from "./simple_shader.js";
 
 class PointShader extends SimpleShader {
     /**
-     * @constructor - Represents a PointShader
+     * @constructor PointShader
      * @param {string} vertexShaderPath - Path to the vertex shader
      * @param {string} fragmentShaderPath - Path to the fragment shader
      */

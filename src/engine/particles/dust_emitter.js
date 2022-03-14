@@ -4,7 +4,7 @@ import engine from "../../engine/index.js";
 
 class DustEmitter extends ParticleEmitter{
     /**
-     * @constructor - represents a DustEmitter
+     * @constructor DustEmitter
      * @param {int} num - The number of particles to emit
      * @param {float} lifespan - The life of the emitter
      */

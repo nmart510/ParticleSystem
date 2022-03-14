@@ -12,7 +12,7 @@ import * as shaderResources from "../core/shader_resources.js";
 
 class PixelRenderable extends Renderable {
     /**
-     * @constructor - Represents a PixelRenderable
+     * @constructor PixelRenderable
      * @param {float} x - x coordinate of the renderable's position
      * @param {float} y - y coordinate of the renderable's position
      */

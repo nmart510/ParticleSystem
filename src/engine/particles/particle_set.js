@@ -19,7 +19,7 @@ import BurstEmitter from "./burst_emitter.js";
 import ElectricityEmitter from "./electricity_emitter.js";
 
 /**
- * @constructor - Represents a new ParticleSet
+ * @constructor ParticleSet
  */
 class ParticleSet extends GameObjectSet {
     constructor() {

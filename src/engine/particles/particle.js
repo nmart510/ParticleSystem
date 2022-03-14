@@ -14,7 +14,7 @@ let kSizeFactor = 0.2;
 
 class Particle {
     /**
-     * @constructor - Represents a Particle
+     * @constructor Particle
      * @param {string} texture - A path to the texture that the particle will have
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position

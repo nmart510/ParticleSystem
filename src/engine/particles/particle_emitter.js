@@ -8,9 +8,8 @@ import engine from "../../engine/index.js";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
-/** Class ParticleEmitter
- *  Creates and emits default particle effects.
- *  @constructor
+/** 
+ *  @constructor ParticleEmitter
  *  @param {float} px - The x coordinate of the emitter's position
  *  @param {float} py - the y coordinate of the emitter's position
  *  @param {int} num - The number of particles to emit

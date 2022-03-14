@@ -2,7 +2,7 @@ import Particle from "./particle.js";
 
 class FlameParticle extends Particle{
     /**
-     * @constructor - represents a flame particle
+     * @constructor FlameParticle
      * @param {string} texture - The texture to be used, contains a path to a file
      * @param {float} x - x coordinate of the particle's position
      * @param {float} y  - y coordinate of the particles position
