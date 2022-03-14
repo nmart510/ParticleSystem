@@ -94,12 +94,17 @@ function resolveRigidShapeSetCollision(objSet, pSet) {
     for (i=0; i<objSet.size(); i++) {
         let rigidShape = objSet.getObjectAt(i).getRigidBody();
         for (j = 0; j<pSet.size(); j++) {
-            if (rigidShape.getType() == "RigidRectangle")
-                collision = resolveRectPos(rigidShape, pSet.getObjectAt(j)) || collision;
-            else if (rigidShape.getType() == "RigidCircle") 
-                collision = resolveCirclePos(rigidShape, pSet.getObjectAt(j)) || collision;
-            if (collision) {
-                pSet.getObjectAt(j).hit();
+            if (rigidShape.getType() == "RigidRectangle") {
+                if (resolveRectPos(rigidShape, pSet.getObjectAt(j))) {
+                    pSet.getObjectAt(j).hit();
+                    collision = true;
+                }
+            }
+            else if (rigidShape.getType() == "RigidCircle") {
+                if (resolveCirclePos(rigidShape, pSet.getObjectAt(j))) {
+                    pSet.getObjectAt(j).hit();
+                    collision = true;
+                }
             }
         }
     }
