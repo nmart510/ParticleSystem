@@ -45,11 +45,11 @@ This allows the user to fine tune the presets to get their desired effects, with
 Each effect has its own emitter, so the user will use specific emitter functions for those effects as opposed to the generic one shown here. For example, if a user wanted to create fire, they would call ``` addFlameAt() ``` instead. See documentation for a full list of particle set emitter functions.
 ## Documentation
 Documentation for this API can be found here:
-[ParticleSystem JSDocs]()
+[ParticleSystem JSDocs](https://nmart510.github.io/ParticleSystem/docs/)
 
 ## Demo Programs
 Demo games using this API can be found here:
 
-[Demo 1 - Basic Functionality]()
+[Demo 1 - Basic Functionality](https://nmart510.github.io/ParticleSystem/)
 
-[Demo 2 - Simon Says]()
+[Demo 2 - Simon Says](https://nmart510.github.io/ParticleSystem/index_second.html)
