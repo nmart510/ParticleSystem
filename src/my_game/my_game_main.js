@@ -35,8 +35,6 @@ class MyGame extends engine.Scene {
         this.mPSCollision = true;
     }
 
-
-
     load() {
         engine.texture.load(this.kMinionSprite);
     }

@@ -6,7 +6,7 @@ import Particle from "./particle.js";
 import engine from "../../engine/index.js";
 "use strict";
 
-let kMinToEmit = 5; // Smallest number of particle emitted per cycle
+//let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 /** 
  *  @constructor ParticleEmitter

@@ -6,7 +6,6 @@
 
 import * as loop from "../core/loop.js";
 import * as particleSystem from "../components/particle_system.js";
-import ParticleRenderable from "../renderables/particle_renderable.js";
 import PixelRenderable from "../renderables/pixel_renderable.js";
 import * as debugDraw from "../core/debug_draw.js";
 
@@ -15,14 +14,13 @@ let kSizeFactor = 0.2;
 class Particle {
     /**
      * @constructor Particle
-     * @param {string} texture - A path to the texture that the particle will have
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position
      * @param {float} life - The lifespan of the particle
      */
-    constructor(texture, x, y, life) {
+    constructor(x, y, life) {
         //this.mRenderComponent = new ParticleRenderable(texture);
-        this.mRenderComponent = new PixelRenderable(texture);
+        this.mRenderComponent = new PixelRenderable();
         this.setPosition(x, y);
 
         // position control
@@ -87,7 +85,7 @@ class Particle {
      * @function hit() - Behavior of the particle upon collision
      */
     hit() {
-        //console.log("Test");
+        //Default behavior is to do nothing.
     }
     /**
      * @function setFinalColor() - Sets the final color of the particle

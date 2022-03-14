@@ -1,4 +1,4 @@
-import Particle from "./particle.js";
+import Particle from "../particle.js";
 
 class SnowParticle extends Particle{
     /**

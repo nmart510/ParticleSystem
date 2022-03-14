@@ -1,6 +1,6 @@
-import ParticleEmitter from "./particle_emitter.js";
+import ParticleEmitter from "../particle_emitter.js";
 import FlameParticle from "./flame_particle.js";
-import engine from "../../engine/index.js";
+import engine from "../../../engine/index.js";
 
 class FlameEmitter extends ParticleEmitter{
     /** Class FlameEmitter

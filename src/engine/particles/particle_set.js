@@ -10,13 +10,13 @@
 
 import * as glSys from "../core/gl.js";
 import GameObjectSet from "../game_objects/game_object_set.js";
-import FlameEmitter from "./flame_emitter.js";
+import FlameEmitter from "./localized/flame_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
-import RainEmitter from "./rain_emitter.js";
-import SnowEmitter from "./snow_emitter.js";
-import DustEmitter from "./dust_emitter.js";
-import BurstEmitter from "./burst_emitter.js";
-import ElectricityEmitter from "./electricity_emitter.js";
+import RainEmitter from "./ambient/rain_emitter.js";
+import SnowEmitter from "./ambient/snow_emitter.js";
+import DustEmitter from "./ambient/dust_emitter.js";
+import BurstEmitter from "./localized/burst_emitter.js";
+import ElectricityEmitter from "./localized/electricity_emitter.js";
 
 /**
  * @constructor ParticleSet

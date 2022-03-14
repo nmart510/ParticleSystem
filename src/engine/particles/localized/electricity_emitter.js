@@ -2,9 +2,9 @@
  * File: burst_emitter.js
  * 
  */
-import ParticleEmitter from "./particle_emitter.js";
+import ParticleEmitter from "../particle_emitter.js";
 import ElectricParticle from "./electric_particle.js";
-import engine from "../../engine/index.js";
+import engine from "../../../engine/index.js";
 "use strict";
 
 /** 

@@ -1,10 +1,10 @@
-import ParticleEmitter from "./particle_emitter.js";
-import DustParticle from "./dust_particle.js";
-import engine from "../../engine/index.js";
+import ParticleEmitter from "../particle_emitter.js";
+import SnowParticle from "./snow_particle.js";
+import engine from "../../index.js";
 
-class DustEmitter extends ParticleEmitter{
+class SnowEmitter extends ParticleEmitter{
     /**
-     * @constructor DustEmitter
+     * @constructor SnowEmitter
      * @param {int} num - The number of particles to emit
      * @param {float} lifespan - The life of the emitter
      */
@@ -32,31 +32,30 @@ class DustEmitter extends ParticleEmitter{
      * @param {ParticleSet} pSet - The set of particles
      */
     emitParticles(pSet){
-        if (Date.now()%3 == 0){
-            let numToEmit = this.mNumRemains;
-            let i, p;
-            for (i = 0; i < numToEmit; i++) {
-                p = this.createDust(this.mColorBegin, this.mColorEnd, this.mWind);
-                pSet.addToSet(p);
-            }
-            if (Date.now() > this.mLifespan){
-                this.mNumRemains = 0;
-            }
+        let numToEmit = this.mNumRemains;
+        let i, p;
+        for (i = 0; i < numToEmit; i++) {
+            p = this.createSnow(this.mColorBegin, this.mColorEnd, this.mWind);
+            pSet.addToSet(p);
+        }
+        if (Date.now() > this.mLifespan){
+            this.mNumRemains = 0;
         }
         
     }
+    
     /**
-     * @function createDust() - Creates dust particles
+     * @function createSnow() - Creates snow particles
      * @param {vec4} colorStart - The starting color
      * @param {vec4} colorEnd - The ending color 
-     * @param {float} wind - The horizontal acceleration of the dust particles
-     * @returns {DustParticle} p - The new dust particle to be added to the set
-     */    
-    createDust(colorStart, colorEnd, wind) {
-        let life = 120 + Math.random() * 480;
+     * @param {float} wind - The horizontal acceleration of the snow particles
+     * @returns {SnowParticle} p - The new snow particle to be added to the set
+     */ 
+    createSnow(colorStart, colorEnd, wind) {
+        let life = 500;
         let x = (Math.random()-.5) * 200;
-        let y = (Math.random()-.5) * 160;
-        let p = new DustParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
+        let y = 80 + Math.random();
+        let p = new SnowParticle(engine.defaultResources.getDefaultPSTexture(), x, y, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         // size of the particle
         let r = this.size + (Math.random()-.5) * this.variance;
@@ -66,9 +65,9 @@ class DustEmitter extends ParticleEmitter{
         
         // velocity on the particle
         let fx = wind;
-        let fy = -1;
+        let fy = -10;
         p.setVelocity(fx, fy);
-        p.setAcceleration(0,0);
+        p.setAcceleration(0, 0);
         // size delta
         p.setSizeDelta(1);
         p.setDrag(1)
@@ -76,4 +75,4 @@ class DustEmitter extends ParticleEmitter{
         return p;
     }
 }
-export default DustEmitter;
+export default SnowEmitter;

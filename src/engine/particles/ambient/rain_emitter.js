@@ -1,6 +1,6 @@
-import ParticleEmitter from "./particle_emitter.js";
+import ParticleEmitter from "../particle_emitter.js";
 import RainParticle from "./rain_particle.js";
-import engine from "../../engine/index.js";
+import engine from "../../../engine/index.js";
 
 class RainEmitter extends ParticleEmitter{
     /**

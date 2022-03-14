@@ -2,9 +2,9 @@
  * File: burst_emitter.js
  * 
  */
-import ParticleEmitter from "./particle_emitter.js";
-import Particle from "./particle.js";
-import engine from "../../engine/index.js";
+import ParticleEmitter from "../particle_emitter.js";
+import Particle from "../particle.js";
+import engine from "../../../engine/index.js";
 "use strict";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
