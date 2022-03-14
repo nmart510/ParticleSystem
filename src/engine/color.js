@@ -1,6 +1,9 @@
 //presets for colors to make things easier
 "use strict";
 
+/**
+ * Class Color - Contains preset values for colors to make the user's life easier
+ */
 class Color {
     static RED = vec4.fromValues(1, 0, 0, 1); //red
     static YELLOW = vec4.fromValues(1, 0.92, 0.016, 1); // it's fucking yellow!

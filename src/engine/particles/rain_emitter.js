@@ -3,17 +3,34 @@ import RainParticle from "./rain_particle.js";
 import engine from "../../engine/index.js";
 
 class RainEmitter extends ParticleEmitter{
+    /**
+     * @constructor - represents a RainEmitter
+     * @param {int} num - The number of particles to emit
+     * @param {float} lifespan - The life of the emitter
+     */
     constructor(num, lifespan) {
         super(0, 0, num);
         this.mLifespan = Date.now() + lifespan;
         this.mWind = 0;
     }
+    /**
+     * @function getWind() - Gets the current horizontal acceleration
+     * @returns {float} mWind - The current horizontal acceleration
+     */
     getWind(){
         return this.mWind;
     }
+    /**
+     * @function setWind() - Sets the horizontal acceleration
+     * @param {float} val - The new horizontal acceleration
+     */
     setWind(val){
         this.mWind = val;
     }
+    /**
+     * @function emitParticles() - Creates and emits particles based on the creator function
+     * @param {ParticleSet} pSet - The set of particles
+     */
     emitParticles(pSet){
         let numToEmit = this.mNumRemains;
         let i, p;
@@ -26,7 +43,13 @@ class RainEmitter extends ParticleEmitter{
         }
         
     }
-        
+    /**
+     * @function createRain() - Creates rain particles
+     * @param {vec4} colorStart - The starting color
+     * @param {vec4} colorEnd - The ending color 
+     * @param {float} wind - The horizontal acceleration of the rain particles
+     * @returns {RainParticle} p - The new rain particle to be added to the set
+     */   
     createRain(colorStart, colorEnd, wind) {
         let life = 60;
         let x = (Math.random()-.5) * 200;
