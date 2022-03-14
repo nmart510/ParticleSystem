@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: renderables/pixel_renderable.js</title>
+    <title>JSDoc: Source: particles/ambient/snow_emitter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: renderables/pixel_renderable.js</h1>
+    <h1 class="page-title">Source: particles/ambient/snow_emitter.js</h1>
 
     
 
@@ -26,96 +26,84 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*
- * File: line_renderable.js
- *  
- * Renderable class for lines
- */
-"use strict";
+            <pre class="prettyprint source linenums"><code>import ParticleEmitter from "../particle_emitter.js";
+import SnowParticle from "./snow_particle.js";
+import engine from "../../index.js";
 
-import * as glSys from "../core/gl.js";
-import Renderable from "./renderable.js";
-import Transform from "../utils/transform.js";
-import * as shaderResources from "../core/shader_resources.js";
-
-class PixelRenderable extends Renderable {
+class SnowEmitter extends ParticleEmitter{
     /**
-     * @constructor PixelRenderable
-     * @param {float} x - x coordinate of the renderable's position
-     * @param {float} y - y coordinate of the renderable's position
+     * @constructor SnowEmitter
+     * @param {int} num - The number of particles to emit
+     * @param {float} lifespan - The life of the emitter
      */
-    // p1, p2: either both there, or none
-    constructor(x, y) {
-        super();
-        this.mShader = shaderResources.getPointShader();  // get the constant color shader
-        this.mXform = new Transform(); // transform that moves this object around
-        this.mColor = [1, 0, 0, 1];    // color of pixel
-
-        this.mPointSize = 1;
-        this.mShowPoint = true;
-
-        //this.mPointLoc = vec2.fromValues(0, 0);
-
-        if (x !== "undefined") {
-            this.setPosition(x, y);
-        }
+    constructor(num, lifespan) {
+        super(0, 0, num);
+        this.mLifespan = Date.now() + lifespan;
+        this.mWind = 0;
     }
-
     /**
-     * @function draw() - Activates the shader of the renderable and draws to the given camera
-     * @param {Camera} camera - The camera to draw to 
+     * @function getWind() - Gets the current horizontal acceleration
+     * @returns {float} mWind - The current horizontal acceleration
      */
-    draw(camera) {
-        let xf = this.mXform;
-        xf.setSize(this.mPointSize, this.mPointSize);
-        this.mShader.setPointSize(this.mPointSize);
-        this.mShader.activate(this.mColor, this.mXform.getTRSMatrix(), camera.getCameraMatrix());
+    getWind(){
+        return this.mWind;
+    }
+    /**
+     * @function setWind() - Sets the horizontal acceleration
+     * @param {float} val - The new horizontal acceleration
+     */
+    setWind(val){
+        this.mWind = val;
+    }
+    /**
+     * @function emitParticles() - Creates and emits particles based on the creator function
+     * @param {ParticleSet} pSet - The set of particles
+     */
+    emitParticles(pSet){
+        let numToEmit = this.mNumRemains;
+        let i, p;
+        for (i = 0; i &lt; numToEmit; i++) {
+            p = this.createSnow(this.mColorBegin, this.mColorEnd, this.mWind);
+            pSet.addToSet(p);
+        }
+        if (Date.now() > this.mLifespan){
+            this.mNumRemains = 0;
+        }
         
-        // Draw point instead of triangle!
-        let gl = glSys.get();
-        if (this.mShowPoint) {
-            //gl.drawArrays(gl.LINE_STRIP, 0, 2);
-            gl.drawArrays(gl.POINTS, 0, 1);
-        }
     }
-
+    
     /**
-     * @function setShowPoint() - Sets whether or not the pixel gets drawn
-     * @param {bool} b - determines if the point gets drawn
-     */
-    setShowPoint(b) { this.mShowPoint = b; }
-
-    /**
-     * @function setSize() - Sets the size of the point
-     * @param {float} s - the new float size
-     */
-    setSize(s) { this.mPointSize = s; }
-    /**
-     * @function getSize() - Gets the current point size
-     * @returns {float} mPointSize - The current size of the point
-     */
-    getSize() { return this.mPointSize; }
-
-    /**
-     * @function setPosition() - Sets the position of the renderable
-     * @param {float} x - The x coordinate of the position
-     * @param {float} y - The y coordinate of the position
-     */
-    setPosition(x, y) {
-        let xf = this.mXform;
-        xf.setPosition(x, y);
-    }
-    /**
-     * @function getPosition() - Gets the current position of the renderable
-     * @returns {vec2} The current position of the renderable
-     */
-    getPostion() {
-        let xf = this.mXform;
-        return xf.getPosition(); 
+     * @function createSnow() - Creates snow particles
+     * @param {vec4} colorStart - The starting color
+     * @param {vec4} colorEnd - The ending color 
+     * @param {float} wind - The horizontal acceleration of the snow particles
+     * @returns {SnowParticle} p - The new snow particle to be added to the set
+     */ 
+    createSnow(colorStart, colorEnd, wind) {
+        let life = 500;
+        let x = (Math.random()-.5) * 200;
+        let y = 80 + Math.random();
+        let p = new SnowParticle(x, y, life);
+        p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
+        // size of the particle
+        let r = this.size + (Math.random()-.5) * this.variance;
+        p.setSize(r, r);
+        // final color
+        p.setFinalColor(colorEnd);
+        
+        // velocity on the particle
+        let fx = wind;
+        let fy = -10;
+        p.setVelocity(fx, fy);
+        p.setAcceleration(0, 0);
+        // size delta
+        p.setSizeDelta(1);
+        p.setDrag(1)
+        
+        return p;
     }
 }
-
-export default PixelRenderable;</code></pre>
+export default SnowEmitter;</code></pre>
         </article>
     </section>
 

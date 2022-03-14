@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: renderables/pixel_renderable.js</title>
+    <title>JSDoc: Source: particles/ambient/snow_particle.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: renderables/pixel_renderable.js</h1>
+    <h1 class="page-title">Source: particles/ambient/snow_particle.js</h1>
 
     
 
@@ -26,96 +26,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*
- * File: line_renderable.js
- *  
- * Renderable class for lines
- */
-"use strict";
+            <pre class="prettyprint source linenums"><code>import Particle from "../particle.js";
 
-import * as glSys from "../core/gl.js";
-import Renderable from "./renderable.js";
-import Transform from "../utils/transform.js";
-import * as shaderResources from "../core/shader_resources.js";
-
-class PixelRenderable extends Renderable {
+class SnowParticle extends Particle{
     /**
-     * @constructor PixelRenderable
-     * @param {float} x - x coordinate of the renderable's position
-     * @param {float} y - y coordinate of the renderable's position
-     */
-    // p1, p2: either both there, or none
-    constructor(x, y) {
-        super();
-        this.mShader = shaderResources.getPointShader();  // get the constant color shader
-        this.mXform = new Transform(); // transform that moves this object around
-        this.mColor = [1, 0, 0, 1];    // color of pixel
-
-        this.mPointSize = 1;
-        this.mShowPoint = true;
-
-        //this.mPointLoc = vec2.fromValues(0, 0);
-
-        if (x !== "undefined") {
-            this.setPosition(x, y);
-        }
-    }
-
-    /**
-     * @function draw() - Activates the shader of the renderable and draws to the given camera
-     * @param {Camera} camera - The camera to draw to 
-     */
-    draw(camera) {
-        let xf = this.mXform;
-        xf.setSize(this.mPointSize, this.mPointSize);
-        this.mShader.setPointSize(this.mPointSize);
-        this.mShader.activate(this.mColor, this.mXform.getTRSMatrix(), camera.getCameraMatrix());
-        
-        // Draw point instead of triangle!
-        let gl = glSys.get();
-        if (this.mShowPoint) {
-            //gl.drawArrays(gl.LINE_STRIP, 0, 2);
-            gl.drawArrays(gl.POINTS, 0, 1);
-        }
-    }
-
-    /**
-     * @function setShowPoint() - Sets whether or not the pixel gets drawn
-     * @param {bool} b - determines if the point gets drawn
-     */
-    setShowPoint(b) { this.mShowPoint = b; }
-
-    /**
-     * @function setSize() - Sets the size of the point
-     * @param {float} s - the new float size
-     */
-    setSize(s) { this.mPointSize = s; }
-    /**
-     * @function getSize() - Gets the current point size
-     * @returns {float} mPointSize - The current size of the point
-     */
-    getSize() { return this.mPointSize; }
-
-    /**
-     * @function setPosition() - Sets the position of the renderable
+     * @constructor SnowParticle
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position
+     * @param {float} life - The lifespan of the particle
      */
-    setPosition(x, y) {
-        let xf = this.mXform;
-        xf.setPosition(x, y);
+    constructor(x, y, life){
+        super(x, y, life);
+        this.mSpread = .3;
+        this.mTargetTime = life * .8;
+        this.mTargetColor = [1,1,.6,1];
     }
     /**
-     * @function getPosition() - Gets the current position of the renderable
-     * @returns {vec2} The current position of the renderable
+     * @function update() - Uses the position and color control variables to update the particle based on the update interval
      */
-    getPostion() {
-        let xf = this.mXform;
-        return xf.getPosition(); 
+    update(){
+        super.update();
+        let p = this.getPosition();
+        if (this.mCyclesToLive%8 == 0){
+            p[0] += (Math.random()-.5)*this.mSpread;
+        }
+        if (this.mCyclesToLive%17 == 0){
+            p[1] += (Math.random()-.5)*this.mSpread;
+        }
+        this.setPosition(p[0], p[1]);
+    }
+    /**
+     * @function setFinalColor() - Sets the final color of the particle
+     * @param {vec2} f - the vector to subtract from the current color
+     */
+    setFinalColor = function(f) {    
+        vec4.sub(this.mDeltaColor, f, this.getColor());
+        if (this.mCyclesToLive !== 0) {
+            vec4.scale(this.mDeltaColor, this.mDeltaColor, 1/this.mCyclesToLive);
+        }
     }
 }
-
-export default PixelRenderable;</code></pre>
+export default SnowParticle;</code></pre>
         </article>
     </section>
 
