@@ -58,17 +58,22 @@ class ParticleEmitter {
     setSizeVariance(variance){
         this.variance = 2*variance;
     }
-<<<<<<< HEAD
+    /**
+     * @function setGrowth() - Sets the growth rate to a new value
+     * @param {float} delta - The new growth rate
+     */
+    setGrowth(delta) {
+        this.mDelta = delta;
+    }
+    /**
+     * @function getGrowth() - Gets the current growth rate
+     * @returns {float} mDelta - The current growth rate
+     */
+    getGrowth() { return this.mDelta; }
     /**
      * @function getColorStart() - gets the starting color
      * @returns {vec4} mColorBegin - The starting color
      */
-=======
-    setGrowth(delta) {
-        this.mDelta = delta;
-    }
-    getGrowth() { return this.mDelta; }
->>>>>>> 265f5e0c3b12c6b34ace7fc31a51ff1d5aa18b7b
     getColorStart(){
         return this.mColorBegin;
     }

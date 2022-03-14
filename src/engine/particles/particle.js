@@ -13,6 +13,13 @@ import * as debugDraw from "../core/debug_draw.js";
 let kSizeFactor = 0.2;
 
 class Particle {
+    /**
+     * @constructor - Represents a Particle
+     * @param {string} texture - A path to the texture that the particle will have
+     * @param {float} x - The x coordinate of the position
+     * @param {float} y - The y coordinate of the position
+     * @param {float} life - The lifespan of the particle
+     */
     constructor(texture, x, y, life) {
         //this.mRenderComponent = new ParticleRenderable(texture);
         this.mRenderComponent = new PixelRenderable(texture);

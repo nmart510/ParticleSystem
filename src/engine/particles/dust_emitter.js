@@ -21,12 +21,16 @@ class DustEmitter extends ParticleEmitter{
         return this.mWind;
     }
     /**
-     * @function setWind() - 
+     * @function setWind() - Sets the horizontal acceleration
      * @param {float} val - The new horizontal acceleration
      */
     setWind(val){
         this.mWind = val;
     }
+    /**
+     * @function emitParticles() - Creates and emits particles based on the creator function
+     * @param {ParticleSet} pSet - The set of particles
+     */
     emitParticles(pSet){
         if (Date.now()%3 == 0){
             let numToEmit = this.mNumRemains;
@@ -41,7 +45,13 @@ class DustEmitter extends ParticleEmitter{
         }
         
     }
-        
+    /**
+     * @function createDust() - Creates dust particles
+     * @param {vec4} colorStart - The starting color
+     * @param {vec4} colorEnd - The ending color 
+     * @param {float} wind - The horizontal acceleration of the dust particles
+     * @returns {DustParticle} p - The new dust particle to be added to the set
+     */    
     createDust(colorStart, colorEnd, wind) {
         let life = 120 + Math.random() * 480;
         let x = (Math.random()-.5) * 200;
