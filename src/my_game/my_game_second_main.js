@@ -20,6 +20,8 @@ class MyGame extends engine.Scene {
         this.mInputCounter = 0;
         this.mCollisionInfos = [];
         this.mScore = 0;
+        this.mOnce = true;
+        this.stageTorches = [];
 
         this.mDisplayCounter = 0;
         this.mDisplayTimer = null;
@@ -28,6 +30,7 @@ class MyGame extends engine.Scene {
         this.mDisplayPhase = false;
         this.mInputPhase = false;
         this.mStartPhase = true;
+        this.mEndPhase = false;
 
         // Particle Support
         this.mParticles = null;
@@ -103,12 +106,31 @@ class MyGame extends engine.Scene {
     // anything from this function!
     update() {
         if (this.mStartPhase){
+            if (this.mOnce){
+                for (let i = 0; i < 4; i++){
+                    let x = this.mTorches.getObjectAt(i).getXform().getXPos();
+                    let y = this.mTorches.getObjectAt(i).getXform().getYPos();
+                    let f = this.mParticles.addFlameAt(x,y-2,2,80000000);
+                    f.setParticleSize(8);
+                    f.setSizeVariance(4);
+                    f.setColorStart(Color.YELLOW);
+                    f.setColorEnd(Color.RED);
+                    f.setClimb(30);
+                    f.setSpread(.6);
+                    this.stageTorches.push(f);
+                }
+                this.mOnce = false;
+            }
             if (engine.input.isKeyClicked(engine.input.keys.Space)) { 
                 this.mStartMsg.setText("        Wait...");
                 this.mStartPhase = false;
                 this.mDisplayPhase = true;
                 this.mScore = 0;
                 this.mDisplayTimer = Date.now() + 1000;
+                this.mOnce = true;
+                for (let i = 0; i < this.stageTorches.length; i++){
+                    this.stageTorches[i].terminate();
+                }
             }
         }
         if (this.mDisplayPhase){
@@ -156,10 +178,19 @@ class MyGame extends engine.Scene {
                 } else {
                     this.mContinue = false;
                     color = Color.RED;
+                    let x = this.mTorches.getObjectAt(this.mPattern[this.mInputCounter]).getXform().getXPos();
+                    let y = this.mTorches.getObjectAt(this.mPattern[this.mInputCounter]).getXform().getYPos();
+                    let f = this.mParticles.addFlameAt(x,y-2,2,1200);
+                    f.setParticleSize(8);
+                    f.setSizeVariance(4);
+                    f.setColorStart(Color.CYAN);
+                    f.setColorEnd(Color.BLUE);
+                    f.setClimb(30);
+                    f.setSpread(.6);
                 }
                 let x = this.mTorches.getObjectAt(input).getXform().getXPos();
                 let y = this.mTorches.getObjectAt(input).getXform().getYPos();
-                let f = this.mParticles.addFlameAt(x,y-2,2,800);
+                let f = this.mParticles.addFlameAt(x,y-2,2,1200);
                 f.setParticleSize(8);
                 f.setSizeVariance(4);
                 f.setColorStart(color);
@@ -170,9 +201,9 @@ class MyGame extends engine.Scene {
             }
             if (this.mContinue == false){
                 this.mInputPhase = false;
-                this.mStartPhase = true;
+                this.mEndPhase = true;
                 this.mInputCounter = 0;
-                this.mStartMsg.setText("Press SPACE to start");
+                this.mStartMsg.setText("    Game Over");
                 this.mContinue = true;
             }
             if (this.mInputCounter >= this.mPattern.length){
@@ -184,6 +215,19 @@ class MyGame extends engine.Scene {
                 this.mStartMsg.setText("        Wait...");
                 this.mDisplayTimer = Date.now() + 1500;
                 this.mInputCounter = 0;
+            }
+        }
+        if (this.mEndPhase){
+            if (this.mOnce){
+                this.mDisplayTimer = Date.now() + 1500;
+                this.mOnce = false;
+                this.mPattern = [];
+            }
+            if (this.mDisplayTimer < Date.now()){
+                this.mStartMsg.setText("Press SPACE to start");
+                this.mEndPhase = false;
+                this.mStartPhase = true;
+                this.mOnce = true;
             }
         }
         this.mMsg.setText("Score: " + this.mScore);
