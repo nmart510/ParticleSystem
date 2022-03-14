@@ -20,11 +20,14 @@ class MyGame extends engine.Scene {
         this.mInputCounter = 0;
         this.mCollisionInfos = [];
         this.mScore = 0;
+        this.mHighScore = 0;
         this.mOnce = true;
         this.mStageTorches = [];
         this.mDust = null;
         this.mWind = 0;
-
+        this.mFireworks = [];
+        this.mFireworkCounter = 0;
+        this.mFireworkTimer = 0;
         this.mDisplayCounter = 0;
         this.mDisplayTimer = null;
 
@@ -56,7 +59,7 @@ class MyGame extends engine.Scene {
             100,                     // width of camera
             [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
         );
-        this.mCamera.setBackgroundColor([0.6, 0.6, 0.6, 1]);
+        this.mCamera.setBackgroundColor([0.4, 0.4, 0.4, 1]);
         // sets the background to gray
         let t = new Torch(this.kTorch,75,40,Color.BLUE);
         let t1 = new Torch(this.kTorch,50,20,Color.RED);
@@ -73,6 +76,10 @@ class MyGame extends engine.Scene {
         this.mMsg.setColor([0, 0, 0, 1]);
         this.mMsg.getXform().setPosition(10, 7);
         this.mMsg.setTextHeight(3);
+        this.mHMsg = new engine.FontRenderable("High Score: 0");
+        this.mHMsg.setColor([0, 0, 0, 1]);
+        this.mHMsg.getXform().setPosition(60, 7);
+        this.mHMsg.setTextHeight(3);
 
         this.mStartMsg = new engine.FontRenderable("Press SPACE to start");
         this.mStartMsg.setColor([0, 0, 0, 1]);
@@ -95,6 +102,7 @@ class MyGame extends engine.Scene {
         this.mCamera.setViewAndCameraMatrix();
 
         this.mMsg.draw(this.mCamera);
+        this.mHMsg.draw(this.mCamera);
 
         this.mParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
@@ -237,18 +245,83 @@ class MyGame extends engine.Scene {
         }
         if (this.mEndPhase){
             if (this.mOnce){
-                this.mDisplayTimer = Date.now() + 1500;
+                this.mDisplayTimer = Date.now() + 1800;
+                if (this.mScore > this.mHighScore){
+                    this.mHighScore = this.mScore;
+                    this.mDisplayTimer += this.mHighScore * 600;
+                    this.mStartMsg.setText("   New High Score!");
+                    for (let i = 0; i < this.mHighScore; i++){
+                        let x = Math.random() * 100;
+                        let y = Math.random() * 75;
+                        this.mFireworks[i] = [x,y,0];
+                    }
+                    this.mFireworkTimer = Date.now();
+                }
                 this.mOnce = false;
                 this.mPattern = [];
+            }
+            if (this.mFireworkTimer < Date.now() && this.mFireworkCounter < this.mHighScore){
+                let b = this.mParticles.addBurstAt(this.mFireworks[this.mFireworkCounter][0],
+                    this.mFireworks[this.mFireworkCounter][1],16);
+                    b.setPulses(4);
+                    b.setDrag(.96);
+                    b.setSpacing(6);
+                    b.setParticleSize(6);
+                    b.setGrowth(-.04);
+                    b.setAcceleration([0,-6]);
+                    if (this.mFireworks[this.mFireworkCounter][2] == 1){
+                        b.setRadius(30);
+                        b.setNumParticles(20);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.RED);
+                            b.setColorEnd(Color.RED);
+                        } else {
+                            b.setColorStart(Color.MAGENTA);
+                            b.setColorEnd(Color.MAGENTA);
+                        }
+                    }
+                    if (this.mFireworks[this.mFireworkCounter][2] == 2){
+                        b.setRadius(45);
+                        b.setNumParticles(24);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.GREEN);
+                            b.setColorEnd(Color.GREEN);
+                        } else {
+                            b.setColorStart(Color.YELLOW);
+                            b.setColorEnd(Color.YELLOW);
+                        }
+                    }
+                    if (this.mFireworks[this.mFireworkCounter][2] == 3){
+                        b.setRadius(40);
+                        b.setNumParticles(28);
+                        if (Math.random() - .5 < 0){
+                            b.setColorStart(Color.BLUE);
+                            b.setColorEnd(Color.BLUE);
+                        } else {
+                            b.setColorStart(Color.CYAN);
+                            b.setColorEnd(Color.CYAN);
+                        }
+                    }
+                this.mFireworkTimer = Date.now() + 200;
+                this.mDisplayTimer = Date.now() + 1800;
+                this.mFireworks[this.mFireworkCounter][2] += 1;
+                if (this.mFireworks[this.mFireworkCounter][2] > 4){
+                    this.mFireworkCounter++;
+                    this.mFireworkTimer = Date.now() + 400;
+                }
+                
             }
             if (this.mDisplayTimer < Date.now()){
                 this.mStartMsg.setText("Press SPACE to start");
                 this.mEndPhase = false;
                 this.mStartPhase = true;
                 this.mOnce = true;
+                this.mFireworks = [];
+                this.mFireworkCounter = 0;
             }
         }
         this.mMsg.setText("Score: " + this.mScore);
+        this.mHMsg.setText("High Score: " + this.mHighScore);
         this.mDust.setWind(this.mWind);
         // Particle System
         this.mParticles.update();
