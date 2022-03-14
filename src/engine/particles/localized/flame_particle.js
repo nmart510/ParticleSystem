@@ -3,13 +3,12 @@ import Particle from "../particle.js";
 class FlameParticle extends Particle{
     /**
      * @constructor FlameParticle
-     * @param {string} texture - The texture to be used, contains a path to a file
      * @param {float} x - x coordinate of the particle's position
      * @param {float} y  - y coordinate of the particles position
      * @param {float} life - lifespan of the individual particle
      */
-    constructor(texture, x, y, life){
-        super(texture, x, y, life);
+    constructor(x, y, life){
+        super(x, y, life);
         this.mSpread = .3;
     }
     /**

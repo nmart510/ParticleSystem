@@ -3,13 +3,12 @@ import Particle from "../particle.js";
 class DustParticle extends Particle{
     /**
      * @constructor DustParticle
-     * @param {string} texture - A path to the texture that the particle will have
      * @param {float} x - The x coordinate of the position
      * @param {float} y - The y coordinate of the position
      * @param {float} life - The lifespan of the particle
      */
-    constructor(texture, x, y, life){
-        super(texture, x, y, life);
+    constructor(x, y, life){
+        super(x, y, life);
         this.mSpread = .02;
         this.mTargetTime = life * .8;
         this.mTargetColor = [1,1,.6,1];

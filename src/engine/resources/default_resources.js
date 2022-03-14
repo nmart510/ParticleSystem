@@ -20,9 +20,6 @@ function setGlobalAmbientColor(v) { mGlobalAmbientColor = vec4.fromValues(v[0], 
 // Default font
 let kDefaultFont = "assets/fonts/system_default_font";
 
-// Default particle texture
-let kDefaultPSTexture = "assets/particles/particle.png";
-
 // unload all resources
 function cleanUp() {
     font.unload(kDefaultFont);
@@ -34,7 +31,6 @@ function init() {
         async function (resolve) {
             await Promise.all([
                 font.load(kDefaultFont),
-                texture.load(kDefaultPSTexture)
             ]);
             resolve();
         }).then(
@@ -45,13 +41,12 @@ function init() {
 
 // font
 function getDefaultFontName() { return kDefaultFont; }
-function getDefaultPSTexture() { return kDefaultPSTexture; }
 
 export {
     init, cleanUp,
 
     // default system font name: this is guaranteed to be loaded
-    getDefaultFontName, getDefaultPSTexture,
+    getDefaultFontName, 
 
     // Global ambient: intensity and color
     getGlobalAmbientColor, setGlobalAmbientColor, 

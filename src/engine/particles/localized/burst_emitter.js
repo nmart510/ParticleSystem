@@ -145,7 +145,7 @@ class BurstEmitter extends ParticleEmitter {
         // size of the particle
         let r = this.size + (Math.random()-.5) * this.variance;
         
-        let p = new Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+        let p = new Particle(atX, atY, life);
         p.setColor([colorStart[0],colorStart[1],colorStart[2],colorStart[3]]);
         p.setSize(r, r);
         // final color
