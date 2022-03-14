@@ -54,7 +54,7 @@ Demo games using this API can be found here:
 
 [Demo 2 - Simon Says](https://nmart510.github.io/ParticleSystem/index_second.html)
 
-##Conclusion
+## Conclusion
 The goal we have set out to accomplish is to create a library of presets which users can choose from allowing for ease of access when creating particles in our game engine. Given the scope of this project we’ve accomplished the main goal of improving the current particle system. 
 
 Our final release expands upon the presets shown in our demo and implements a pixel renderable to help with performance issues. Our goal of allowing for multiple textured particles simply cannot be accomplished with this current implementation. 
