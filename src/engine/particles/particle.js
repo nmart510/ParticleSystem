@@ -110,13 +110,13 @@ class Particle {
      */
     getColor() { return this.mRenderComponent.getColor(); }
     /**
-     * @function getDrawBounds() - Returns the drawing bounds of the particle
-     * @returns {}
+     * @function getDrawBounds() - Returns whether or not the bounds are drawn
+     * @returns {bool} - True if bounds are drawn, false otherwise
      */
     getDrawBounds() { return this.mDrawBounds; }
     /**
-     * @function setDrawBounds() - Sets the drawing bounds
-     * @param {*} d 
+     * @function setDrawBounds() - Sets whether or not the drawing bounds are drawn
+     * @param {bool} d - True if the bounds are to be drawn, false otherwise
      */
     setDrawBounds(d) { this.mDrawBounds = d; }
 
